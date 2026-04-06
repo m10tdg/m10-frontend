@@ -1,6 +1,8 @@
 // src/shared/stores/types.ts
 export type UserRole = 'admin' | 'test_engineer' | 'standard_user' | 'developer'
 
+export type Lang = 'en' | 'tr' | 'de'
+
 export interface User {
   id: string
   name: string
