@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Globe, ChevronDown } from "lucide-react";
 import { primary } from "@/shared/styles/colors";
+import { useLangStore } from "@/shared/stores/langStore";
 import type { Lang } from "@/shared/stores/types";
 
 // ─── Language Selector ────────────────────────────────────────────────────────
@@ -15,13 +16,8 @@ const langFull: Record<Lang, string> = {
   de: "Deutsch",
 };
 
-export function LanguageSwitcher({
-  lang,
-  setLang,
-}: {
-  lang: Lang;
-  setLang: (l: Lang) => void;
-}) {
+export function LanguageSwitcher() {
+  const { lang, setLang } = useLangStore();
   const [open, setOpen] = useState(false);
   return (
     <div className="relative">
