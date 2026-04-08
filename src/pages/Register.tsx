@@ -181,52 +181,49 @@ export function RegisterPage() {
             />
 
             {/* Terms checkbox */}
-            <div>
-              <label className="flex items-start gap-2.5 cursor-pointer">
+           <div>
+              <div className="flex items-start gap-2.5">
                 <div
-                  className="relative w-4 h-4 mt-0.5 rounded flex items-center justify-center border transition-colors shrink-0"
+                  role="checkbox"
+                  aria-checked={agreeTerms}
+                  tabIndex={0}
+                  className="relative w-4 h-4 mt-0.5 rounded flex items-center justify-center border transition-colors shrink-0 cursor-pointer"
                   style={{
-                    borderColor: showErr("terms") ? "#FA5252" : agreeTerms ? "#4C6EF5" : "#D1D5DB",
-                    backgroundColor: agreeTerms ? "#4C6EF5" : "#ffffff",
-                  }}
-                  onClick={() => setAgreeTerms(!agreeTerms)}
-                >
-                  {agreeTerms && (
-                    <svg className="w-2.5 h-2.5 text-white" viewBox="0 0 12 9" fill="none">
-                      <path d="M1 4L4.5 7.5L11 1" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  )}
-                  <input
-                    type="checkbox"
-                    checked={agreeTerms}
-                    onChange={(e) => setAgreeTerms(e.target.checked)}
-                    className="sr-only"
-                  />
+                  borderColor: showErr("terms") ? "#FA5252" : agreeTerms ? "#4C6EF5" : "#D1D5DB",
+                  backgroundColor: agreeTerms ? "#4C6EF5" : "#ffffff",
+                 }}
+                  onClick={() => setAgreeTerms((prev) => !prev)}
+                 >
+               {agreeTerms && (
+                <svg className="w-2.5 h-2.5 text-white" viewBox="0 0 12 9" fill="none">
+                <path d="M1 4L4.5 7.5L11 1" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                 )}
                 </div>
-                <span className="text-sm text-gray-600 leading-relaxed">
-                  {tx.agreeTerms}{" "}
-                  <button type="button" className="underline text-blue-600 hover:text-blue-700">
-                    {tx.terms}
-                  </button>
-                  {" "}{tx.and}{" "}
-                  <button type="button" className="underline text-blue-600 hover:text-blue-700">
-                    {tx.privacy}
-                  </button>
-                </span>
-              </label>
-              {showErr("terms") && (
-                <p className="mt-1.5 text-xs flex items-center gap-1 text-red-600">
-                  <Check className="w-3.5 h-3.5" />
-                  {showErr("terms")}
-                </p>
-              )}
+               <span className="text-sm text-gray-600 leading-relaxed select-none">
+                {tx.agreeTerms}{" "}
+                <button type="button" className="underline text-blue-600 hover:text-blue-700 cursor-pointer">
+                 {tx.terms}
+                </button>
+                 {" "}{tx.and}{" "}
+               <button type="button" className="underline text-blue-600 hover:text-blue-700 cursor-pointer">
+                {tx.privacy}
+               </button>
+              </span>
             </div>
+           {showErr("terms") && (
+            <p className="mt-1.5 text-xs flex items-center gap-1 text-red-600">
+            <Check className="w-3.5 h-3.5" />
+            {showErr("terms")}
+            </p>
+           )}
+        </div>
 
             {/* Submit */}
             <button
               type="submit"
               disabled={loading}
-              className="w-full flex items-center justify-center gap-2 py-3 rounded-xl text-white text-sm transition-opacity mt-1 bg-blue-500 hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full flex items-center justify-center gap-2 py-3 rounded-xl text-white text-sm transition-opacity mt-1 bg-blue-500 hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
             >
               {loading ? (
                 <>
@@ -281,7 +278,7 @@ export function RegisterPage() {
             {tx.haveAccount}{" "}
             <button
               onClick={() => navigate("/login")}
-              className="transition-colors text-blue-600 hover:text-blue-700"
+              className="transition-colors text-blue-600 hover:text-blue-700 cursor-pointer"
             >
               {tx.signIn}
             </button>

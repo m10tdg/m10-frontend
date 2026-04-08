@@ -131,46 +131,41 @@ export function LoginPage() {
             />
 
             {/* Remember me + Forgot password */}
-            <div className="flex items-center justify-between pt-1">
-              <label className="flex items-center gap-2 cursor-pointer group">
-                <div
-                  className="relative w-4 h-4 rounded flex items-center justify-center border transition-colors"
-                  style={{
-                    borderColor: rememberMe ? "#4C6EF5" : "#D1D5DB",
-                    backgroundColor: rememberMe ? "#4C6EF5" : "#ffffff",
-                  }}
-                  onClick={() => setRememberMe(!rememberMe)}
-                >
-                  {rememberMe && (
-                    <svg className="w-2.5 h-2.5 text-white" viewBox="0 0 12 9" fill="none">
-                      <path d="M1 4L4.5 7.5L11 1" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  )}
-                  <input
-                    type="checkbox"
-                    checked={rememberMe}
-                    onChange={(e) => setRememberMe(e.target.checked)}
-                    className="sr-only"
-                    aria-label={tx.rememberMe}
-                  />
-                </div>
-                <span className="text-sm text-gray-600 select-none">
-                  {tx.rememberMe}
-                </span>
-              </label>
-              <button
-                type="button"
-                className="text-sm transition-colors text-blue-600 hover:text-blue-700"
-              >
-                {tx.forgotPassword}
-              </button>
-            </div>
+        <div className="flex items-center justify-between pt-1">
+          <div className="flex items-center gap-2 cursor-pointer" onClick={() => setRememberMe((prev) => !prev)}>
+            <div
+              role="checkbox"
+              aria-checked={rememberMe}
+              tabIndex={0}
+              className="w-4 h-4 rounded flex items-center justify-center border transition-colors shrink-0"
+              style={{
+              borderColor: rememberMe ? "#4C6EF5" : "#D1D5DB",
+              backgroundColor: rememberMe ? "#4C6EF5" : "#ffffff",
+             }}
+            >
+      {rememberMe && (
+        <svg className="w-2.5 h-2.5" viewBox="0 0 12 9" fill="none">
+          <path d="M1 4L4.5 7.5L11 1" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      )}
+    </div>
+    <span className="text-sm text-gray-600 select-none">
+      {tx.rememberMe}
+    </span>
+  </div>
+  <button
+    type="button"
+    className="text-sm transition-colors text-blue-600 hover:text-blue-700 cursor-pointer"
+  >
+    {tx.forgotPassword}
+  </button>
+</div>
 
             {/* Submit */}
             <button
               type="submit"
               disabled={loading}
-              className="w-full flex items-center justify-center gap-2 py-3 rounded-xl text-white text-sm transition-opacity mt-2 bg-blue-500 hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full flex items-center justify-center gap-2 py-3 rounded-xl text-white text-sm transition-opacity mt-2 bg-blue-500 hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
             >
               {loading ? (
                 <>
@@ -227,7 +222,7 @@ export function LoginPage() {
             {tx.noAccount}{" "}
             <button
               onClick={() => navigate("/register")}
-              className="transition-colors text-blue-600 hover:text-blue-700"
+              className="transition-colors text-blue-600 hover:text-blue-700 cursor-pointer"
             >
               {tx.signUp}
             </button>

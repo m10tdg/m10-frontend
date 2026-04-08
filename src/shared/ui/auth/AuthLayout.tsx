@@ -16,7 +16,7 @@ export function AuthLayout({ children, footerLinks }: AuthLayoutProps) {
       <header className="flex items-center justify-between px-6 py-4 border-b border-gray-100 bg-white">
         <button
           onClick={() => navigate("/")}
-          className="flex items-center gap-2.5 hover:opacity-80 transition-opacity"
+          className="flex items-center gap-2.5 hover:opacity-80 transition-opacity cursor-pointer"
         >
             <div className="flex items-center gap-3">
               <div

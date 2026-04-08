@@ -23,7 +23,7 @@ export function LanguageSwitcher() {
     <div className="relative">
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-gray-200 bg-white text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-gray-200 bg-white text-sm text-gray-700 hover:bg-gray-50 transition-colors cursor-pointer"
         aria-label="Select language"
       >
         <Globe className="w-4 h-4" style={{ color: primary }} />
@@ -41,7 +41,7 @@ export function LanguageSwitcher() {
                 setLang(l);
                 setOpen(false);
               }}
-              className={`w-full text-left px-4 py-2.5 text-sm transition-colors flex items-center gap-2 ${
+              className={`cursor-pointer w-full text-left px-4 py-2.5 text-sm transition-colors flex items-center gap-2 ${
                 lang === l
                   ? "text-white"
                   : "text-gray-700 hover:bg-gray-50"
