@@ -4,12 +4,12 @@ import { bg } from '@/shared/styles/colors'
 import { StarRating } from '@/shared/ui/StarRating'
 
 export function TestimonialsWidget() {
+  
   const { lang } = useLangStore()
   const tx = translations[lang]
-  // JSX from the hero section of App.tsx
+
   return(
     <>
-          {/* ── Testimonials ──────────────────────────────────────────────────── */}
       <section className="py-20 px-4" style={{ backgroundColor: "#ffffff" }}>
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-14">

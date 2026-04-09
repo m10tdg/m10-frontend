@@ -3,17 +3,18 @@ import { translations } from '@/shared/config/i18n'
 import { primary } from '@/shared/styles/colors'
 import { ArrowRight, Menu, X } from 'lucide-react'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { LanguageSwitcher } from '@/shared/ui/LanguageSwitcher'
 
 export function NavbarWidget() {
-  const { lang, setLang } = useLangStore()
+  
+  const { lang } = useLangStore()
+  const navigate = useNavigate()
   const tx = translations[lang]
   const [mobileOpen, setMobileOpen] = useState(false)
 
-  // JSX from the hero section of App.tsx
     return (
     <>
-      {/* ── Navbar ────────────────────────────────────────────────────────── */}
       <header
         className="sticky top-0 z-50 border-b border-gray-200"
         style={{ backgroundColor: "#ffffff" }}
@@ -61,15 +62,22 @@ export function NavbarWidget() {
 
             {/* Actions */}
             <div className="flex items-center gap-3">
-              <LanguageSwitcher lang={lang} setLang={setLang} />
-              <a
-                href="#cta"
-                className="hidden md:inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm text-white transition-opacity hover:opacity-90"
+              <LanguageSwitcher />
+              <button
+                onClick={() => navigate("/login")}
+                className="hidden md:inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm border border-gray-200 text-gray-700 hover:bg-gray-50 transition-colors cursor-pointer"
+                style={{ fontFamily: "Inter, sans-serif" }}
+              >
+                {lang === "tr" ? "Giriş Yap" : lang === "de" ? "Anmelden" : "Sign In"}
+              </button>
+              <button
+                onClick={() => navigate("/register")}
+                className="hidden md:inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm text-white transition-opacity hover:opacity-90 cursor-pointer"
                 style={{ backgroundColor: primary, fontFamily: "Inter, sans-serif" }}
               >
                 {tx.nav.getStarted}
                 <ArrowRight className="w-3.5 h-3.5" />
-              </a>
+              </button>
               {/* Mobile menu toggle */}
               <button
                 className="md:hidden p-2 rounded-lg text-gray-500 hover:bg-gray-100"
