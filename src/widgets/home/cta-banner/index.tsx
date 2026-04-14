@@ -37,7 +37,7 @@ export function CtaBannerWidget() {
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 <button
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm transition-opacity hover:opacity-90"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm transition-opacity hover:opacity-90 cursor-pointer"
                   style={{
                     backgroundColor: "#ffffff",
                     color: primary,
@@ -48,7 +48,7 @@ export function CtaBannerWidget() {
                   {tx.cta.cta1}
                 </button>
                 <button
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm border border-white/40 text-white hover:bg-white/10 transition-colors"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm border border-white/40 text-white hover:bg-white/10 transition-colors cursor-pointer"
                   style={{ fontFamily: "Inter, sans-serif" }}
                 >
                   {tx.cta.cta2}
