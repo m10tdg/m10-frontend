@@ -476,7 +476,7 @@ export const translations = {
       product: "Produkt",
       company: "Unternehmen",
       support: "Support",
-      rights: "© 2025 M10 Test Platform. Alle Rechte vorbehalten.",
+      rights: "© 2026 M10 Test Platform. Alle Rechte vorbehalten.",
       links: {
         product: ["Funktionen", "Preise", "Dokumentation", "API"],
         company: ["Über uns", "Blog", "Karriere", "Kontakt"],
