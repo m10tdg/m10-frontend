@@ -154,7 +154,7 @@ export const translations = {
       product: "Product",
       company: "Company",
       support: "Support",
-      rights: "© 2025 M10 Test Platform. All rights reserved.",
+      rights: "© 2026 M10 Test Platform. All rights reserved.",
       links: {
         product: ["Features", "Pricing", "Documentation", "API"],
         company: ["About", "Blog", "Careers", "Contact"],
@@ -315,7 +315,7 @@ export const translations = {
       product: "Ürün",
       company: "Şirket",
       support: "Destek",
-      rights: "© 2025 M10 Test Platform. Tüm hakları saklıdır.",
+      rights: "© 2026 M10 Test Platform. Tüm hakları saklıdır.",
       links: {
         product: ["Özellikler", "Fiyatlandırma", "Dokümantasyon", "API"],
         company: ["Hakkımızda", "Blog", "Kariyer", "İletişim"],
