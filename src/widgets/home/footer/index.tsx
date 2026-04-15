@@ -47,7 +47,7 @@ export function FooterWidget() {
                     <button
                       key={l}
                       onClick={() => setLang(l)}
-                      className="px-3 py-1.5 rounded-lg text-xs border transition-colors"
+                      className="px-3 py-1.5 rounded-lg text-xs border transition-colors cursor-pointer"
                       style={{
                         backgroundColor: lang === l ? primary : "transparent",
                         borderColor: lang === l ? primary : "#374151",
