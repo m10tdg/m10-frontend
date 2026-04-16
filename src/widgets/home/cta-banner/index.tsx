@@ -1,5 +1,5 @@
 import { useLangStore } from '@/shared/stores/langStore'
-import { translations } from '@/shared/config/i18n'
+import { translations } from '@/shared/config/translations/home'
 import { primary,bg } from '@/shared/styles/colors'
 import { Play, ChevronRight } from 'lucide-react'
 

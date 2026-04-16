@@ -1,5 +1,5 @@
 import { useLangStore } from '@/shared/stores/langStore'
-import { translations } from '@/shared/config/i18n'
+import { translations } from '@/shared/config/translations/home'
 import { primary, success, warning, danger, bg } from '@/shared/styles/colors'
 import { Users, TrendingUp, Shield } from 'lucide-react'
 
