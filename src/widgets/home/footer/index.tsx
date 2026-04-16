@@ -1,5 +1,5 @@
 import { useLangStore } from '@/shared/stores/langStore'
-import { translations } from '@/shared/config/i18n'
+import { translations } from '@/shared/config/translations/home'
 import { primary, success } from '@/shared/styles/colors'
 import { langLabels } from '@/shared/config/i18n'
 import type { Lang } from '@/shared/stores/types'
