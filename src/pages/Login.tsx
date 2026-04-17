@@ -54,6 +54,7 @@ export function LoginPage() {
     await new Promise((r) => setTimeout(r, 1500));
     setLoading(false);
     setSuccessMsg(tx.success);
+    setTimeout(() => navigate("/admin"), 800);
   };
 
   return (
