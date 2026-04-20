@@ -57,7 +57,7 @@ export function TopBar({
       <div className="flex items-center gap-2 ml-auto">
         {/* Refresh */}
         <button
-          className="flex items-center gap-2 px-3 py-2 rounded-xl text-sm text-gray-600 border border-gray-200 hover:bg-gray-50 transition-colors"
+          className="flex items-center gap-2 px-3 py-2 rounded-xl text-sm text-gray-600 border border-gray-200 hover:bg-gray-50 transition-colors cursor-pointer"
           style={{ fontFamily: "Inter, sans-serif" }}
         >
           <RefreshCw style={{ width: "14px", height: "14px" }} />
@@ -86,7 +86,7 @@ export function TopBar({
             <button
               key={l}
               onClick={() => setLang(l)}
-              className="px-2 py-1 rounded-lg text-xs transition-colors"
+              className="px-2 py-1 rounded-lg text-xs transition-colors cursor-pointer"
               style={{
                 backgroundColor: lang === l ? primary : "transparent",
                 color: lang === l ? "#fff" : "#6B7280",
@@ -102,7 +102,7 @@ export function TopBar({
         <div className="relative">
           <button
             onClick={() => setProfileOpen(!profileOpen)}
-            className="flex items-center gap-2 pl-1 pr-2 py-1 rounded-xl border border-gray-200 hover:bg-gray-50 transition-colors"
+            className="flex items-center gap-2 pl-1 pr-2 py-1 rounded-xl border border-gray-200 hover:bg-gray-50 transition-colors cursor-pointer"
           >
             <div
               className="w-7 h-7 rounded-lg flex items-center justify-center text-white text-xs"
@@ -126,7 +126,7 @@ export function TopBar({
                 <button
                   key={i}
                   onClick={() => { item.action(); setProfileOpen(false); }}
-                  className="w-full text-left px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                  className="w-full text-left px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors cursor-pointer"
                   style={{ fontFamily: "Inter, sans-serif" }}
                 >
                   {item.label}
