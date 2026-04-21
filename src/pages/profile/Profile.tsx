@@ -19,8 +19,8 @@ import {
   AlertTriangle,
 } from "lucide-react";
 
-import { AdminSidebar } from "@/shared/ui/adminDashboard/AdminSidebar";
-import { TopBar } from "@/shared/ui/adminDashboard/TopBar";
+import { AdminSidebar } from "@/pages/adminDashboard/components/AdminSidebar";
+import { TopBar } from "@/pages/adminDashboard/components/TopBar";
 import { useLangStore } from "@/shared/stores/langStore";
 import { primary, danger, success, bg } from "@/shared/styles/colors";
 
@@ -593,7 +593,7 @@ export function ProfilePage() {
                     </div>
                   </div>
                   <button
-                    className="w-full px-4 py-2 rounded-lg text-sm text-white flex items-center justify-center gap-2 hover:opacity-90 transition-opacity"
+                    className="w-full px-4 py-2 rounded-lg text-sm text-white flex items-center justify-center gap-2 hover:opacity-90 transition-opacity cursor-pointer"
                     style={{ backgroundColor: danger, fontFamily: "Inter, sans-serif" }}
                   >
                     <Trash2 style={{ width: "14px", height: "14px" }} />

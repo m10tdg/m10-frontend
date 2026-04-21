@@ -12,10 +12,10 @@ import {
 } from "lucide-react";
 import { useLangStore } from "@/shared/stores/langStore";
 import { registerTranslations } from "@/shared/config/translations/register";
-import { AuthLayout } from "@/shared/ui/auth/AuthLayout";
-import { InputField } from "@/shared/ui/auth/InputField";
-import { SocialButton } from "@/shared/ui/auth/SocialButton";
-import { PasswordStrengthIndicator } from "@/shared/ui/auth/PasswordStrengthIndicator";
+import { AuthLayout } from "@/pages/auth/components/AuthLayout";
+import { InputField } from "@/pages/auth/components/InputField";
+import { SocialButton } from "@/pages/auth/components/SocialButton";
+import { PasswordStrengthIndicator } from "@/pages/auth/components/PasswordStrengthIndicator";
 
 // ─── Register Page ────────────────────────────────────────────────────────────
 export function RegisterPage() {

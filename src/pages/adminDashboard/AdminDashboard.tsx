@@ -28,13 +28,13 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-import { AdminSidebar } from "@/shared/ui/adminDashboard/AdminSidebar";
-import { TopBar } from "@/shared/ui/adminDashboard/TopBar";
-import { StatusBadge } from "@/shared/ui/adminDashboard/StatusBadge";
-import { TypeBadge } from "@/shared/ui/adminDashboard/TypeBadge";
-import { EnvStatusDot } from "@/shared/ui/adminDashboard/EnvStatusDot";
-import { NotifIcon } from "@/shared/ui/adminDashboard/NotifIcon";
-import { StatCard } from "@/shared/ui/adminDashboard/StatCard";
+import { AdminSidebar } from "@/pages/adminDashboard/components/AdminSidebar";
+import { TopBar } from "@/pages/adminDashboard/components/TopBar";
+import { StatusBadge } from "@/pages/adminDashboard/components/StatusBadge";
+import { TypeBadge } from "@/pages/adminDashboard/components/TypeBadge";
+import { EnvStatusDot } from "@/pages/adminDashboard/components/EnvStatusDot";
+import { NotifIcon } from "@/pages/adminDashboard/components/NotifIcon";
+import { StatCard } from "@/pages/adminDashboard/components/StatCard";
 
 import { tx } from "@/shared/config/translations/adminDashboard";
 import { useLangStore } from "@/shared/stores/langStore";
