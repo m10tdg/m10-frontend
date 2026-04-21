@@ -39,7 +39,7 @@ import { StatCard } from "@/shared/ui/adminDashboard/StatCard";
 import { tx } from "@/shared/config/translations/adminDashboard";
 import { useLangStore } from "@/shared/stores/langStore";
 import { primary,danger,warning,success,bg } from "@/shared/styles/colors";
-import { trendData, recentTests, environments, notifications,topUsers } from "@/entities/MockData";
+import { trendData, recentTests, environments, notifications,topUsers } from "@/entities/Dashboard";
 
 
 export function AdminDashboard() {
