@@ -28,8 +28,8 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-import { AdminSidebar } from "@/pages/adminDashboard/components/AdminSidebar";
-import { TopBar } from "@/pages/adminDashboard/components/TopBar";
+import { AdminSidebar } from "@/shared/ui/admin/components/AdminSidebar";
+import { TopBar } from "@/shared/ui/admin/components/TopBar";
 import { StatusBadge } from "@/pages/adminDashboard/components/StatusBadge";
 import { TypeBadge } from "@/pages/adminDashboard/components/TypeBadge";
 import { EnvStatusDot } from "@/pages/adminDashboard/components/EnvStatusDot";
@@ -148,7 +148,7 @@ export function AdminDashboard() {
               {quickActions.map(({ key, icon: Icon, color, bg }) => (
                 <button
                   key={key}
-                  className="flex items-center gap-2.5 px-4 py-2.5 rounded-xl border border-gray-100 hover:border-gray-200 hover:shadow-sm transition-all text-sm text-gray-700"
+                  className="flex items-center gap-2.5 px-4 py-2.5 rounded-xl border border-gray-100 hover:border-gray-200 hover:shadow-sm transition-all text-sm text-gray-700 cursor-pointer"
                   style={{ fontFamily: "Inter, sans-serif", backgroundColor: "#ffffff" }}
                   onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = bg; }}
                   onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "#ffffff"; }}
@@ -226,14 +226,14 @@ export function AdminDashboard() {
                   </h2>
                   <div className="flex items-center gap-2">
                     <button
-                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-gray-200 text-xs text-gray-600 hover:bg-gray-50 transition-colors"
+                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-gray-200 text-xs text-gray-600 hover:bg-gray-50 transition-colors cursor-pointer"
                       style={{ fontFamily: "Inter, sans-serif" }}
                     >
                       <Filter style={{ width: "12px", height: "12px" }} />
                       {t.recentTests.filter}
                     </button>
                     <button
-                      className="px-3 py-1.5 rounded-lg text-xs text-white"
+                      className="px-3 py-1.5 rounded-lg text-xs text-white cursor-pointer"
                       style={{ backgroundColor: primary, fontFamily: "Inter, sans-serif" }}
                     >
                       {t.recentTests.viewAll}
@@ -324,7 +324,7 @@ export function AdminDashboard() {
                   <div className="flex items-center gap-2">
                     <button
                       onClick={markAllRead}
-                      className="text-xs hover:opacity-75 transition-opacity"
+                      className="text-xs hover:opacity-75 transition-opacity cursor-pointer"
                       style={{ color: primary, fontFamily: "Inter, sans-serif" }}
                     >
                       {t.notifications.markAll}
@@ -355,7 +355,7 @@ export function AdminDashboard() {
                             </p>
                             <button
                               onClick={() => dismissNotif(notif.id)}
-                              className="text-gray-300 hover:text-gray-500 transition-colors shrink-0"
+                              className="text-gray-300 hover:text-gray-500 transition-colors shrink-0 cursor-pointer"
                             >
                               <X style={{ width: "12px", height: "12px" }} />
                             </button>
@@ -375,7 +375,7 @@ export function AdminDashboard() {
                   <div className="px-4 py-3 border-t border-gray-100">
                     <button
                       onClick={clearAll}
-                      className="w-full text-xs text-gray-400 hover:text-gray-600 transition-colors text-center"
+                      className="w-full text-xs text-gray-400 hover:text-gray-600 transition-colors text-center cursor-pointer"
                       style={{ fontFamily: "Inter, sans-serif" }}
                     >
                       {t.notifications.clearAll}
@@ -394,7 +394,7 @@ export function AdminDashboard() {
                     {t.environments.title}
                   </h2>
                   <button
-                    className="text-xs px-2.5 py-1.5 rounded-lg border border-gray-200 text-gray-600 hover:bg-gray-50 transition-colors"
+                    className="text-xs px-2.5 py-1.5 rounded-lg border border-gray-200 text-gray-600 hover:bg-gray-50 transition-colors cursor-pointer"
                     style={{ fontFamily: "Inter, sans-serif" }}
                   >
                     {t.environments.viewAll}
@@ -506,7 +506,7 @@ export function AdminDashboard() {
           style={{ backgroundColor: "#ffffff", borderColor: "#E5E7EB" }}
         >
           <p className="text-xs text-gray-400" style={{ fontFamily: "Inter, sans-serif" }}>
-            © 2025 M10 Platform · v2.4.0
+            © 2026 M10 Platform · Technology Development Group
           </p>
           <div className="flex items-center gap-1.5 text-xs text-gray-400" style={{ fontFamily: "Inter, sans-serif" }}>
             <span className="w-2 h-2 rounded-full" style={{ backgroundColor: success }} />

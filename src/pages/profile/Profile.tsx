@@ -19,8 +19,8 @@ import {
   AlertTriangle,
 } from "lucide-react";
 
-import { AdminSidebar } from "@/pages/adminDashboard/components/AdminSidebar";
-import { TopBar } from "@/pages/adminDashboard/components/TopBar";
+import { AdminSidebar } from "@/shared/ui/admin/components/AdminSidebar";
+import { TopBar } from "@/shared/ui/admin/components/TopBar";
 import { useLangStore } from "@/shared/stores/langStore";
 import { primary, danger, success, bg } from "@/shared/styles/colors";
 
@@ -458,7 +458,7 @@ export function ProfilePage() {
                       </div>
                       <button
                         onClick={() => setTwoFactorEnabled(!twoFactorEnabled)}
-                        className="relative w-11 h-6 rounded-full transition-colors"
+                        className="relative w-11 h-6 rounded-full transition-colors cursor-pointer"
                         style={{ backgroundColor: twoFactorEnabled ? success : "#E5E7EB" }}
                       >
                         <span
