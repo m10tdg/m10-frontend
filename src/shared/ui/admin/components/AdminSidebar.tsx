@@ -9,7 +9,7 @@ import {
 
 import { useLangStore } from "@/shared/stores/langStore";
 import { navTranslations } from "@/shared/config/translations/adminDashboard";
-import { navItems } from "@/pages/adminDashboard/config";
+import { navItems } from "@/shared/ui/admin/config";
 import {primary} from '@/shared/styles/colors'
 
 interface AdminSidebarProps {

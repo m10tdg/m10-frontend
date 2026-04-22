@@ -5,6 +5,7 @@ import { LoginPage } from "@/pages/auth/Login";
 import { RegisterPage } from "@/pages/auth/Register";
 import { AdminDashboard } from "@/pages/adminDashboard/AdminDashboard";
 import { ProfilePage } from "@/pages/profile/Profile";
+import { UserManagement } from "@/pages/adminUserManagement/UserManagement";
 
 export const router = createBrowserRouter([
   { path: "/", element: <Home /> },
@@ -12,4 +13,5 @@ export const router = createBrowserRouter([
   { path: "/register", element: <RegisterPage /> },
   { path: "/admin", element: <AdminDashboard /> },
   {path: "/profile", element: <ProfilePage /> },
+  {path: "/admin/users", element: < UserManagement /> },
 ]);
