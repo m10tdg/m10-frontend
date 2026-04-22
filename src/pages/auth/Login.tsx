@@ -11,9 +11,9 @@ import {
 
 import { useLangStore } from "@/shared/stores/langStore";
 import { loginTranslations } from "@/shared/config/translations/login";
-import { AuthLayout } from "@/shared/ui/auth/AuthLayout";
-import { InputField } from "@/shared/ui/auth/InputField";
-import { SocialButton } from "@/shared/ui/auth/SocialButton";
+import { AuthLayout } from "@/pages/auth/components/AuthLayout";
+import { InputField } from "@/pages/auth/components/InputField";
+import { SocialButton } from "@/pages/auth/components/SocialButton";
 
 export function LoginPage() {
   const { lang } = useLangStore();
