@@ -22,7 +22,7 @@ import {
 
 import { AdminSidebar } from "@/shared/ui/admin/components/AdminSidebar";
 import { TopBar } from "@/shared/ui/admin/components/TopBar";
-import { StatCard } from "@/pages/adminDashboard/components/StatCard";
+import { StatCard } from "@/shared/ui/admin/components/StatCard";
 import { RoleBadge } from "@/pages/adminUserManagement/components/RoleBadge";
 
 import { useLangStore } from "@/shared/stores/langStore";

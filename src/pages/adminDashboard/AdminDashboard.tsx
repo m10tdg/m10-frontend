@@ -34,7 +34,7 @@ import { StatusBadge } from "@/pages/adminDashboard/components/StatusBadge";
 import { TypeBadge } from "@/pages/adminDashboard/components/TypeBadge";
 import { EnvStatusDot } from "@/pages/adminDashboard/components/EnvStatusDot";
 import { NotifIcon } from "@/pages/adminDashboard/components/NotifIcon";
-import { StatCard } from "@/pages/adminDashboard/components/StatCard";
+import { StatCard } from "@/shared/ui/admin/components/StatCard";
 
 import { tx } from "@/shared/config/translations/adminDashboard";
 import { useLangStore } from "@/shared/stores/langStore";
