@@ -1,7 +1,6 @@
 import { TrendingUp, TrendingDown } from "lucide-react";
 import { success, danger } from "@/shared/styles/colors";
 
-// ─── Stat Card ────────────────────────────────────────────────────────────────
 export function StatCard({
   label, value, delta, deltaLabel, icon: Icon, color, bg,
 }: {
