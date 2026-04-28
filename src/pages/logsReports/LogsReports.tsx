@@ -66,7 +66,7 @@ export function LogsReports() {
   const [notifPanelOpen, setNotifPanelOpen] = useState(false);
 
   // State
-  const [logs, setLogs] = useState<LogEntry[]>(initialLogs);
+  const [logs] = useState<LogEntry[]>(initialLogs);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedLevel, setSelectedLevel] = useState("all");
   const [selectedSource, setSelectedSource] = useState("All Sources");
