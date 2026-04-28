@@ -7,6 +7,7 @@ import { AdminDashboard } from "@/pages/adminDashboard/AdminDashboard";
 import { ProfilePage } from "@/pages/profile/Profile";
 import { UserManagement } from "@/pages/adminUserManagement/UserManagement";
 import { LicenseManagement } from "@/pages/license/License";
+import { LogsReports } from "@/pages/logsReports/LogsReports";
 
 export const router = createBrowserRouter([
   { path: "/", element: <Home /> },
@@ -15,5 +16,6 @@ export const router = createBrowserRouter([
   { path: "/admin", element: <AdminDashboard /> },
   {path: "/profile", element: <ProfilePage /> },
   {path: "/admin/users", element: < UserManagement /> },
-  {path: "/admin/licenses", element: <LicenseManagement /> }
+  {path: "/admin/licenses", element: <LicenseManagement /> },
+  {path: "/admin/logs-reports", element: <LogsReports /> },
 ]);

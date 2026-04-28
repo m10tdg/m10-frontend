@@ -16,6 +16,6 @@ export const navItems = [
   { key: "cicd", icon: GitBranch, path: "/admin/cicd" },
   { key: "security", icon: Shield, path: "/admin/security" },
   { key: "licenses", icon: KeyRound, path: "/admin/licenses" },
-  { key: "logs", icon: FileText, path: "/admin/logs" },
+  { key: "logs", icon: FileText, path: "/admin/logs-reports" },
   { key: "settings", icon: Settings, path: "/admin/settings" },
 ];
