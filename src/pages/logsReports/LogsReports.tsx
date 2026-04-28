@@ -65,7 +65,6 @@ export function LogsReports() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [notifPanelOpen, setNotifPanelOpen] = useState(false);
 
-  // State
   const [logs] = useState<LogEntry[]>(initialLogs);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedLevel, setSelectedLevel] = useState("all");
