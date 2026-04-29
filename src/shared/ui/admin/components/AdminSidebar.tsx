@@ -76,7 +76,7 @@ export function AdminSidebar({ collapsed, setCollapsed }: AdminSidebarProps) {
                 key={key}
                 onClick={() => navigate(path)}
                 title={collapsed ? tx[key] : undefined}
-                className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all text-left group"
+                className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all text-left group cursor-pointer"
                 style={{
                   backgroundColor: isActive ? primary : "transparent",
                   color: isActive ? "#ffffff" : "#9CA3AF",

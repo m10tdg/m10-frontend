@@ -393,7 +393,7 @@ export function LogsReports() {
                   </div>
                 </div>
 
-                <div className="max-h-[600px] overflow-y-auto">
+                <div className="max-h-150 overflow-y-auto">
                   {filteredLogs.map((log) => (
                     <div
                       key={log.id}
