@@ -4,7 +4,7 @@ import { useState } from "react";
 import {
   Monitor, GitCompare, Camera, BarChart2,
   Play, Circle, Server, Plus, RefreshCw,
-  Globe, Settings, X, Eye, Trash2, CheckCircle,
+  Globe, Settings, X, Trash2, CheckCircle,
 } from "lucide-react";
 
 import { AdminSidebar } from "@/shared/ui/admin/components/AdminSidebar";
@@ -62,7 +62,7 @@ export function TestEnvironments() {
   const [analyticsBrowsers, setAnalyticsBrowsers] = useState<string[]>(["chrome"]);
 
   // Modal
-  const [modalOpen, setModalOpen] = useState(false);
+  //const [modalOpen, setModalOpen] = useState(false);
 
   const overviewCards = [
     {
