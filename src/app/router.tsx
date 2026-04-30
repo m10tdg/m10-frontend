@@ -9,6 +9,7 @@ import { UserManagement } from "@/pages/adminUserManagement/UserManagement";
 import { LicenseManagement } from "@/pages/license/License";
 import { LogsReports } from "@/pages/logsReports/LogsReports";
 import { SystemSettings } from "@/pages/systemSettings.tsx/systemSettings";
+import { TestEnvironments } from "@/pages/testEnvironments/TestEnvironments";
 
 export const router = createBrowserRouter([
   { path: "/", element: <Home /> },
@@ -20,4 +21,5 @@ export const router = createBrowserRouter([
   {path: "/admin/licenses", element: <LicenseManagement /> },
   {path: "/admin/logs-reports", element: <LogsReports /> },
   {path:"/admin/settings", element: <SystemSettings /> },
+  {path:"/admin/test-environments", element: <TestEnvironments /> },
 ]);
