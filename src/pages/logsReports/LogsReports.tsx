@@ -718,7 +718,7 @@ export function LogsReports() {
           style={{ backgroundColor: "#ffffff", borderColor: "#E5E7EB" }}
         >
           <p className="text-xs text-gray-400" style={{ fontFamily: "Inter, sans-serif" }}>
-            © 2025 M10 Platform · Technology Development Group
+            © 2026 M10 Platform · Technology Development Group
           </p>
           <div className="flex items-center gap-1.5 text-xs text-gray-400" style={{ fontFamily: "Inter, sans-serif" }}>
             <span className="w-2 h-2 rounded-full" style={{ backgroundColor: success }} />
