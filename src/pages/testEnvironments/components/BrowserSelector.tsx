@@ -1,6 +1,15 @@
 // pages/testEnvironments/components/BrowserSelector.tsx
 
 import { browsers } from "@/entities/testEnvironments";
+import { SiGooglechrome, SiFirefox, SiSafari } from "react-icons/si";
+import { FaEdge } from "react-icons/fa";
+
+const BROWSER_ICONS: Record<string, React.ReactNode> = {
+  chrome:  <SiGooglechrome  style={{ width: 14, height: 14, color: "#4285F4" }} />,
+  firefox: <SiFirefox       style={{ width: 14, height: 14, color: "#FF7139" }} />,
+  safari:  <SiSafari        style={{ width: 14, height: 14, color: "#006CFF" }} />,
+  edge:    <FaEdge          style={{ width: 14, height: 14, color: "#0078D4" }} />,
+};
 
 type Props = {
   selected: string[];          // array of selected browser values
@@ -36,7 +45,7 @@ export function BrowserSelector({ selected, onChange, multi = false }: Props) {
             }`}
             style={{ fontFamily: "Inter, sans-serif" }}
           >
-            <span>{b.icon}</span>
+            <span>{BROWSER_ICONS[b.value]}</span>
             {b.label}
           </button>
         );
