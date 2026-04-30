@@ -1,6 +1,5 @@
 // entities/testEnvironments/data.ts
 
-
 export const testStats = {
   totalTests: 1284,
   todayTests: 47,
@@ -10,10 +9,10 @@ export const testStats = {
 };
 
 export const browsers = [
-  { value: "chrome",  label: "Chrome",  icon: "🟢" },
-  { value: "firefox", label: "Firefox", icon: "🟠" },
-  { value: "safari",  label: "Safari",  icon: "🔵" },
-  { value: "edge",    label: "Edge",    icon: "🟣" },
+  { value: "chrome",  label: "Chrome" },
+  { value: "firefox", label: "Firefox" },
+  { value: "safari",  label: "Safari" },
+  { value: "edge",    label: "Edge" },
 ];
 
 export const resolutions = [
