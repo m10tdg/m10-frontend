@@ -120,7 +120,6 @@ export function TopBar({
             <div className="absolute right-0 mt-1 w-48 bg-white border border-gray-200 rounded-xl shadow-lg z-50 overflow-hidden py-1">
               {[
                 { label: lang === "tr" ? "Profil" : lang === "de" ? "Profil" : "Profile", action: () => navigate("/profile") },
-                { label: lang === "tr" ? "Ayarlar" : lang === "de" ? "Einstellungen" : "Settings", action: () => {} },
                 { label: lang === "tr" ? "Çıkış Yap" : lang === "de" ? "Abmelden" : "Sign Out", action: () => navigate("/login") },
               ].map((item, i) => (
                 <button
