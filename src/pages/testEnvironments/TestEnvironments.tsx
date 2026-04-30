@@ -61,38 +61,129 @@ export function TestEnvironments() {
   const [analyticsUrl,      setAnalyticsUrl]      = useState("");
   const [analyticsBrowsers, setAnalyticsBrowsers] = useState<string[]>(["chrome"]);
 
+  const t = {
+  pageTitle: lang === "tr" ? "Test Ortamları" : lang === "de" ? "Testumgebungen" : "Test Environments",
+  pageSubtitle:
+    lang === "tr"
+      ? "Tarayıcılar ve cihazlar üzerinde manuel ve otomatik testler çalıştırın"
+      : lang === "de"
+      ? "Führen Sie manuelle und automatisierte Tests über Browser und Geräte hinweg durch"
+      : "Run manual and automated tests across browsers and devices",
+
+  stats: {
+    totalTests:  lang === "tr" ? "Toplam Test"     : lang === "de" ? "Gesamttests"        : "Total Tests",
+    passed:      lang === "tr" ? "Başarılı"        : lang === "de" ? "Bestanden"          : "Passed",
+    failed:      lang === "tr" ? "Başarısız"       : lang === "de" ? "Fehlgeschlagen"     : "Failed",
+    avgDuration: lang === "tr" ? "Ort. Süre"       : lang === "de" ? "Durchschn. Dauer"   : "Avg Duration",
+    today:       lang === "tr" ? "bugün"           : lang === "de" ? "heute"              : "today",
+    perTest:     lang === "tr" ? "test başına"     : lang === "de" ? "pro Test"           : "per test",
+    allTime:     lang === "tr" ? "toplam"          : lang === "de" ? "insgesamt"          : "all time",
+  },
+
+  mainTabs: {
+    manual:    lang === "tr" ? "Manuel Test"     : lang === "de" ? "Manuelles Testen"    : "Manual Testing",
+    automated: lang === "tr" ? "Otomatik Test"   : lang === "de" ? "Automatisiertes Testen" : "Automated Testing",
+  },
+
+  manualTabs: {
+    live:      lang === "tr" ? "Canlı Test"         : lang === "de" ? "Live-Test"              : "Live Testing",
+    compare:   lang === "tr" ? "Karşılaştır"        : lang === "de" ? "Vergleichen"            : "Compare",
+    visual:    lang === "tr" ? "Görsel Test"        : lang === "de" ? "Visueller Test"         : "Visual Testing",
+    analytics: lang === "tr" ? "Sayfa Analitiği"    : lang === "de" ? "Seitenanalyse"          : "Page Analytics",
+  },
+
+  autoTabs: {
+    recorder: lang === "tr" ? "Test Kaydedici"  : lang === "de" ? "Test-Recorder"    : "Test Recorder",
+    selenium: lang === "tr" ? "Selenium Grid"   : lang === "de" ? "Selenium Grid"    : "Selenium Grid",
+  },
+
+  fields: {
+    url:        lang === "tr" ? "URL"               : lang === "de" ? "URL"                 : "URL",
+    resolution: lang === "tr" ? "Çözünürlük"        : lang === "de" ? "Auflösung"           : "Resolution",
+    browser:    lang === "tr" ? "Tarayıcı"          : lang === "de" ? "Browser"             : "Browser",
+    browsers:   lang === "tr" ? "Tarayıcılar"       : lang === "de" ? "Browser"             : "Select Browsers",
+    compareBrowsers:
+      lang === "tr" ? "Karşılaştırılacak Tarayıcılar (en az 2 seçin)"
+      : lang === "de" ? "Browser zum Vergleichen (mindestens 2 auswählen)"
+      : "Select Browsers to Compare (select 2 or more)",
+  },
+
+  actions: {
+    runTest:          lang === "tr" ? "Testi Çalıştır"       : lang === "de" ? "Test starten"           : "Run Test",
+    runComparison:    lang === "tr" ? "Karşılaştır"          : lang === "de" ? "Vergleich starten"      : "Run Comparison",
+    generateScreenshots: lang === "tr" ? "Ekran Görüntüsü Al" : lang === "de" ? "Screenshots erstellen" : "Generate Screenshots",
+    generateAnalytics: lang === "tr" ? "Analiz Oluştur"      : lang === "de" ? "Analyse generieren"    : "Generate Analytics",
+    newRecording:     lang === "tr" ? "Yeni Kayıt"           : lang === "de" ? "Neue Aufnahme"         : "New Recording",
+    run:              lang === "tr" ? "Çalıştır"             : lang === "de" ? "Ausführen"             : "Run",
+    view:             lang === "tr" ? "Görüntüle"            : lang === "de" ? "Anzeigen"              : "View",
+  },
+
+  panels: {
+    liveConfig:       lang === "tr" ? "Canlı Test Yapılandırması"    : lang === "de" ? "Live-Test-Konfiguration"      : "Live Testing Configuration",
+    crossBrowser:     lang === "tr" ? "Çapraz Tarayıcı Karşılaştırması" : lang === "de" ? "Browserübergreifender Vergleich" : "Cross-Browser Comparison",
+    visualConfig:     lang === "tr" ? "Görsel Test & Ekran Görüntüleri" : lang === "de" ? "Visuelles Testen & Screenshots" : "Visual Testing & Screenshots",
+    analyticsConfig:  lang === "tr" ? "Sayfa Analitiği — Core Web Vitals" : lang === "de" ? "Seitenanalyse — Core Web Vitals" : "Page Analytics — Core Web Vitals",
+    recentLive:       lang === "tr" ? "Son Canlı Testler"    : lang === "de" ? "Letzte Live-Tests"     : "Recent Live Tests",
+    recentCompare:    lang === "tr" ? "Son Karşılaştırmalar" : lang === "de" ? "Letzte Vergleiche"     : "Recent Comparisons",
+    recentVisual:     lang === "tr" ? "Son Görsel Testler"   : lang === "de" ? "Letzte Visuelle Tests" : "Recent Visual Tests",
+    recentAnalytics:  lang === "tr" ? "Son Analizler"        : lang === "de" ? "Letzte Analysen"       : "Recent Analytics",
+    recordedSessions: lang === "tr" ? "Kaydedilmiş Oturumlar" : lang === "de" ? "Aufgezeichnete Sitzungen" : "Recorded Sessions",
+    gridNodes:        lang === "tr" ? "Grid Düğümleri"       : lang === "de" ? "Grid-Knoten"           : "Grid Nodes",
+  },
+
+  selenium: {
+    totalNodes: lang === "tr" ? "Toplam Düğüm" : lang === "de" ? "Gesamtknoten" : "Total Nodes",
+    active:     lang === "tr" ? "Aktif"         : lang === "de" ? "Aktiv"        : "Active",
+    offline:    lang === "tr" ? "Çevrimdışı"   : lang === "de" ? "Offline"      : "Offline",
+    node:       lang === "tr" ? "Düğüm"        : lang === "de" ? "Knoten"       : "Node",
+    browser:    lang === "tr" ? "Tarayıcı"     : lang === "de" ? "Browser"      : "Browser",
+    os:         lang === "tr" ? "İşletim Sistemi" : lang === "de" ? "Betriebssystem" : "OS",
+    sessions:   lang === "tr" ? "Oturumlar"   : lang === "de" ? "Sitzungen"    : "Sessions",
+    status:     lang === "tr" ? "Durum"        : lang === "de" ? "Status"       : "Status",
+  },
+
+  recorder: {
+    steps:    lang === "tr" ? "adım"       : lang === "de" ? "Schritte"   : "steps",
+    lastRun:  lang === "tr" ? "Son çalışma" : lang === "de" ? "Zuletzt ausgeführt" : "Last run",
+  },
+
+  footer: {
+    operational: lang === "tr" ? "Tüm sistemler çalışıyor" : lang === "de" ? "Alle Systeme laufen" : "All systems operational",
+  },
+};
+
   // Modal
   //const [modalOpen, setModalOpen] = useState(false);
 
   const overviewCards = [
     {
-      label: "Total Tests",
+      label: t.stats.totalTests,
       value: testStats.totalTests.toLocaleString(),
-      deltaLabel: `${testStats.todayTests} today`,
+      deltaLabel: `${testStats.todayTests} ${t.stats.today}`,
       icon: Monitor,
       color: primary,
       bg: "#EEF2FF",
     },
     {
-      label: "Passed",
+      label: t.stats.passed,
       value: testStats.passed.toLocaleString(),
-      deltaLabel: "all time",
+      deltaLabel: `${t.stats.allTime}`,
       icon: CheckCircle,
       color: success,
       bg: "#EBFBEE",
     },
     {
-      label: "Failed",
+      label: t.stats.failed,
       value: testStats.failed.toLocaleString(),
-      deltaLabel: "all time",
+      deltaLabel: `${t.stats.allTime}`,
       icon: X,
       color: danger,
       bg: "#FFF5F5",
     },
     {
-      label: "Avg Duration",
+      label: t.stats.avgDuration,
       value: `${testStats.avgDuration}s`,
-      deltaLabel: "per test",
+      deltaLabel: `${t.stats.perTest}`,
       icon: RefreshCw,
       color: warning,
       bg: "#FFF9DB",
@@ -105,7 +196,7 @@ export function TestEnvironments() {
   }) => (
     <div className="flex-1">
       <label className="block text-xs text-gray-500 mb-1.5" style={{ fontFamily: "Inter, sans-serif" }}>
-        URL
+        {t.fields.url}
       </label>
       <div className="relative">
         <Globe className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" style={{ width: 14, height: 14 }} />
@@ -124,7 +215,7 @@ export function TestEnvironments() {
   const ResolutionSelect = ({ value, onChange }: { value: string; onChange: (v: string) => void }) => (
     <div>
       <label className="block text-xs text-gray-500 mb-1.5" style={{ fontFamily: "Inter, sans-serif" }}>
-        Resolution
+        {t.fields.resolution}
       </label>
       <select
         value={value}
@@ -168,10 +259,10 @@ export function TestEnvironments() {
           {/* Page Header */}
           <div className="mb-6">
             <h1 className="text-gray-900 mb-0.5" style={{ fontSize: "1.375rem", fontFamily: "Inter, sans-serif" }}>
-              Test Environments
+              {t.pageTitle}
             </h1>
             <p className="text-sm text-gray-500" style={{ fontFamily: "Inter, sans-serif" }}>
-              Run manual and automated tests across browsers and devices
+              {t.pageSubtitle}
             </p>
           </div>
 
@@ -192,7 +283,7 @@ export function TestEnvironments() {
                   } cursor-pointer`}
                   style={{ fontFamily: "Inter, sans-serif" }}
                 >
-                  {tab === "manual" ? "Manual Testing" : "Automated Testing"}
+                  {tab === "manual" ? t.mainTabs.manual : t.mainTabs.automated}
                   {mainTab === tab && (
                     <div className="absolute bottom-0 left-0 right-0 h-0.5" style={{ backgroundColor: primary }} />
                   )}
@@ -207,10 +298,10 @@ export function TestEnvironments() {
               {/* Sub-tabs */}
               <div className="flex gap-1 p-1 rounded-xl bg-gray-100 w-fit">
                 {([
-                  { key: "live",      label: "Live Testing",   Icon: Monitor    },
-                  { key: "compare",   label: "Compare",        Icon: GitCompare },
-                  { key: "visual",    label: "Visual Testing", Icon: Camera     },
-                  { key: "analytics", label: "Page Analytics", Icon: BarChart2  },
+                  { key: "live",      label: t.manualTabs.live,   Icon: Monitor    },
+                  { key: "compare",   label: t.manualTabs.compare, Icon: GitCompare },
+                  { key: "visual",    label: t.manualTabs.visual, Icon: Camera     },
+                  { key: "analytics", label: t.manualTabs.analytics, Icon: BarChart2  },
                 ] as { key: ManualTab; label: string; Icon: any }[]).map(({ key, label, Icon }) => (
                   <button
                     key={key}
@@ -233,14 +324,14 @@ export function TestEnvironments() {
                 <div className="space-y-5">
                   <div className="rounded-2xl border border-gray-100 p-5" style={{ backgroundColor: "#ffffff" }}>
                     <h2 className="text-sm text-gray-700 mb-4" style={{ fontFamily: "Inter, sans-serif" }}>
-                      Live Testing Configuration
+                      {t.panels.liveConfig}
                     </h2>
                     <div className="flex flex-col lg:flex-row gap-4 items-end">
                       <UrlInput value={liveUrl} onChange={setLiveUrl} />
                       <ResolutionSelect value={liveResolution} onChange={setLiveResolution} />
                       <div>
                         <label className="block text-xs text-gray-500 mb-1.5" style={{ fontFamily: "Inter, sans-serif" }}>
-                          Browser
+                          {t.fields.browser}
                         </label>
                         <BrowserSelector selected={liveBrowser} onChange={setLiveBrowser} multi={false} />
                       </div>
@@ -249,12 +340,12 @@ export function TestEnvironments() {
                         style={{ backgroundColor: primary, fontFamily: "Inter, sans-serif" }}
                       >
                         <Play style={{ width: 14, height: 14 }} />
-                        Run Test
+                        {t.actions.runTest}
                       </button>
                     </div>
                   </div>
 
-                  <RecentPanel title="Recent Live Tests" count={recentLiveTests.length}>
+                  <RecentPanel title={t.panels.recentLive} count={recentLiveTests.length}>
                     {recentLiveTests.map((t) => (
                       <TestCard
                         key={t.id}
@@ -273,7 +364,7 @@ export function TestEnvironments() {
                 <div className="space-y-5">
                   <div className="rounded-2xl border border-gray-100 p-5" style={{ backgroundColor: "#ffffff" }}>
                     <h2 className="text-sm text-gray-700 mb-4" style={{ fontFamily: "Inter, sans-serif" }}>
-                      Cross-Browser Comparison
+                      {t.panels.crossBrowser}
                     </h2>
                     <div className="space-y-4">
                       <div className="flex flex-col lg:flex-row gap-4 items-end">
@@ -282,7 +373,7 @@ export function TestEnvironments() {
                       </div>
                       <div>
                         <label className="block text-xs text-gray-500 mb-1.5" style={{ fontFamily: "Inter, sans-serif" }}>
-                          Select Browsers to Compare (select 2 or more)
+                          {t.fields.compareBrowsers}
                         </label>
                         <BrowserSelector selected={compareBrowsers} onChange={setCompareBrowsers} multi={true} />
                       </div>
@@ -292,13 +383,13 @@ export function TestEnvironments() {
                           style={{ backgroundColor: primary, fontFamily: "Inter, sans-serif" }}
                         >
                           <GitCompare style={{ width: 14, height: 14 }} />
-                          Run Comparison
+                          {t.actions.runComparison}
                         </button>
                       </div>
                     </div>
                   </div>
 
-                  <RecentPanel title="Recent Comparisons" count={recentCompareTests.length}>
+                  <RecentPanel title={t.panels.recentCompare} count={recentCompareTests.length}>
                     {recentCompareTests.map((t) => (
                       <TestCard
                         key={t.id}
@@ -317,7 +408,7 @@ export function TestEnvironments() {
                 <div className="space-y-5">
                   <div className="rounded-2xl border border-gray-100 p-5" style={{ backgroundColor: "#ffffff" }}>
                     <h2 className="text-sm text-gray-700 mb-4" style={{ fontFamily: "Inter, sans-serif" }}>
-                      Visual Testing & Screenshots
+                      {t.panels.visualConfig}
                     </h2>
                     <div className="space-y-4">
                       <div className="flex flex-col lg:flex-row gap-4 items-end">
@@ -326,7 +417,7 @@ export function TestEnvironments() {
                       </div>
                       <div>
                         <label className="block text-xs text-gray-500 mb-1.5" style={{ fontFamily: "Inter, sans-serif" }}>
-                          Select Browsers
+                          {t.fields.browsers}
                         </label>
                         <BrowserSelector selected={visualBrowsers} onChange={setVisualBrowsers} multi={true} />
                       </div>
@@ -336,13 +427,13 @@ export function TestEnvironments() {
                           style={{ backgroundColor: primary, fontFamily: "Inter, sans-serif" }}
                         >
                           <Camera style={{ width: 14, height: 14 }} />
-                          Generate Screenshots
+                          {t.actions.generateScreenshots}
                         </button>
                       </div>
                     </div>
                   </div>
 
-                  <RecentPanel title="Recent Visual Tests" count={recentVisualTests.length}>
+                  <RecentPanel title={t.panels.recentVisual} count={recentVisualTests.length}>
                     {recentVisualTests.map((t) => (
                       <TestCard
                         key={t.id}
@@ -362,7 +453,7 @@ export function TestEnvironments() {
                 <div className="space-y-5">
                   <div className="rounded-2xl border border-gray-100 p-5" style={{ backgroundColor: "#ffffff" }}>
                     <h2 className="text-sm text-gray-700 mb-4" style={{ fontFamily: "Inter, sans-serif" }}>
-                      Page Analytics — Core Web Vitals
+                      {t.panels.analyticsConfig}
                     </h2>
                     <div className="space-y-4">
                       <div className="flex flex-col lg:flex-row gap-4 items-end">
@@ -370,7 +461,7 @@ export function TestEnvironments() {
                       </div>
                       <div>
                         <label className="block text-xs text-gray-500 mb-1.5" style={{ fontFamily: "Inter, sans-serif" }}>
-                          Select Browsers
+                          {t.fields.browsers}
                         </label>
                         <BrowserSelector selected={analyticsBrowsers} onChange={setAnalyticsBrowsers} multi={true} />
                       </div>
@@ -380,13 +471,13 @@ export function TestEnvironments() {
                           style={{ backgroundColor: primary, fontFamily: "Inter, sans-serif" }}
                         >
                           <BarChart2 style={{ width: 14, height: 14 }} />
-                          Generate Analytics
+                          {t.actions.generateAnalytics}
                         </button>
                       </div>
                     </div>
                   </div>
 
-                  <RecentPanel title="Recent Analytics" count={recentPageAnalytics.length}>
+                  <RecentPanel title={t.panels.recentAnalytics} count={recentPageAnalytics.length}>
                     {recentPageAnalytics.map((t) => (
                       <TestCard
                         key={t.id}
@@ -409,8 +500,8 @@ export function TestEnvironments() {
               {/* Sub-tabs */}
               <div className="flex gap-1 p-1 rounded-xl bg-gray-100 w-fit">
                 {([
-                  { key: "recorder", label: "Test Recorder", Icon: Circle  },
-                  { key: "selenium", label: "Selenium Grid", Icon: Server  },
+                  { key: "recorder", label: t.autoTabs.recorder, Icon: Circle  },
+                  { key: "selenium", label: t.autoTabs.selenium, Icon: Server  },
                 ] as { key: AutoTab; label: string; Icon: any }[]).map(({ key, label, Icon }) => (
                   <button
                     key={key}
@@ -437,14 +528,14 @@ export function TestEnvironments() {
                       style={{ backgroundColor: primary, fontFamily: "Inter, sans-serif" }}
                     >
                       <Plus style={{ width: 14, height: 14 }} />
-                      New Recording
+                      {t.actions.newRecording}
                     </button>
                   </div>
 
                   <div className="rounded-2xl border border-gray-100 overflow-hidden" style={{ backgroundColor: "#ffffff" }}>
                     <div className="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
                       <h2 className="text-sm text-gray-700" style={{ fontFamily: "Inter, sans-serif" }}>
-                        Recorded Sessions
+                        {t.panels.recordedSessions}
                       </h2>
                       <span
                         className="px-2 py-0.5 rounded-full text-xs text-white"
@@ -492,9 +583,9 @@ export function TestEnvironments() {
                   {/* Grid summary */}
                   <div className="grid grid-cols-3 gap-4">
                     {[
-                      { label: "Total Nodes", value: seleniumGridNodes.length, color: primary },
-                      { label: "Active",  value: seleniumGridNodes.filter(n => n.status === "active").length,  color: success },
-                      { label: "Offline", value: seleniumGridNodes.filter(n => n.status === "offline").length, color: danger  },
+                      { label: t.selenium.totalNodes , value: seleniumGridNodes.length, color: primary },
+                      { label: t.selenium.active, value: seleniumGridNodes.filter(n => n.status === "active").length, color: success },
+                      { label: t.selenium.offline, value: seleniumGridNodes.filter(n => n.status === "offline").length, color: danger  },
                     ].map((item, i) => (
                       <div key={i} className="rounded-2xl border border-gray-100 p-4" style={{ backgroundColor: "#ffffff" }}>
                         <p className="text-xs text-gray-500 mb-1" style={{ fontFamily: "Inter, sans-serif" }}>{item.label}</p>
@@ -514,7 +605,7 @@ export function TestEnvironments() {
                       <table className="w-full">
                         <thead>
                           <tr className="border-b border-gray-100">
-                            {["Node", "Browser", "OS", "Sessions", "Status"].map((h) => (
+                            {[t.selenium.node, t.selenium.browser, t.selenium.os, t.selenium.sessions, t.selenium.status].map((h) => (
                               <th key={h} className="px-5 py-3 text-left text-xs text-gray-400" style={{ fontFamily: "Inter, sans-serif" }}>
                                 {h}
                               </th>
@@ -551,7 +642,7 @@ export function TestEnvironments() {
           </p>
           <div className="flex items-center gap-1.5 text-xs text-gray-400" style={{ fontFamily: "Inter, sans-serif" }}>
             <span className="w-2 h-2 rounded-full" style={{ backgroundColor: success }} />
-            All systems operational
+            {t.footer.operational}
           </div>
         </footer>
       </div>
