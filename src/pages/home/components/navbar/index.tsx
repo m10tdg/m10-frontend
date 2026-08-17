@@ -1,7 +1,7 @@
 import { useLangStore } from '@/shared/stores/langStore'
 import { translations } from '@/shared/config/translations/home'
 import { primary } from '@/shared/styles/colors'
-import { ArrowRight, Menu, X } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { LanguageSwitcher } from '@/shared/ui/LanguageSwitcher'
