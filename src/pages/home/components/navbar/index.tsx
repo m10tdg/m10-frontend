@@ -109,14 +109,7 @@ export function NavbarWidget() {
                 {tx.nav[key]}
               </a>
             ))}
-            <a
-              href="#cta"
-              onClick={() => setMobileOpen(false)}
-              className="block mt-2 px-3 py-2 rounded-lg text-sm text-white text-center"
-              style={{ backgroundColor: primary }}
-            >
-              {tx.nav.getStarted}
-            </a>
+
           </div>
         )}
       </header>
