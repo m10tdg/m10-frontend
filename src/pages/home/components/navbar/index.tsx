@@ -1,7 +1,7 @@
 import { useLangStore } from '@/shared/stores/langStore'
 import { translations } from '@/shared/config/translations/home'
 import { primary } from '@/shared/styles/colors'
-import { Menu, X } from 'lucide-react'
+import { ArrowRight, Menu, X } from 'lucide-react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { LanguageSwitcher } from '@/shared/ui/LanguageSwitcher'
@@ -69,6 +69,14 @@ export function NavbarWidget() {
                 style={{ fontFamily: "Inter, sans-serif" }}
               >
                 {lang === "tr" ? "Giriş Yap" : lang === "de" ? "Anmelden" : "Sign In"}
+              </button>
+              <button
+                onClick={() => navigate("/register")}
+                className="hidden md:inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm text-white transition-opacity hover:opacity-90 cursor-pointer"
+                style={{ backgroundColor: primary, fontFamily: "Inter, sans-serif" }}
+              >
+                {tx.nav.getStarted}
+                <ArrowRight className="w-3.5 h-3.5" />
               </button>
               {/* Mobile menu toggle */}
               <button
