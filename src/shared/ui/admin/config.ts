@@ -5,6 +5,7 @@ import {
   Settings,
   FileText,
   KeyRound,
+  FlaskConical,
  } from "lucide-react";
 
 export const navItems = [
@@ -13,5 +14,6 @@ export const navItems = [
   { key: "environments", icon: Server, path: "/admin/test-environments" },
   { key: "licenses", icon: KeyRound, path: "/admin/licenses" },
   { key: "logs", icon: FileText, path: "/admin/logs-reports" },
+  { key: "myTester", icon: FlaskConical, path: "/admin/my-tester" },
   { key: "settings", icon: Settings, path: "/admin/settings" },
 ];

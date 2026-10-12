@@ -10,6 +10,7 @@ import { LicenseManagement } from "@/pages/license/License";
 import { LogsReports } from "@/pages/logsReports/LogsReports";
 import { SystemSettings } from "@/pages/systemSettings.tsx/systemSettings";
 import { TestEnvironments } from "@/pages/testEnvironments/TestEnvironments";
+import { MyTester } from "@/pages/myTester/MyTester";
 
 export const router = createBrowserRouter([
   { path: "/", element: <Home /> },
@@ -22,4 +23,5 @@ export const router = createBrowserRouter([
   {path: "/admin/logs-reports", element: <LogsReports /> },
   {path:"/admin/settings", element: <SystemSettings /> },
   {path:"/admin/test-environments", element: <TestEnvironments /> },
+  {path:"/admin/my-tester", element: <MyTester /> },
 ]);
