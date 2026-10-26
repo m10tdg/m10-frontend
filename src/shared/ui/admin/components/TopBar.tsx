@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Search, Bell, RefreshCw, ChevronDown } from 'lucide-react';
 
 import { useLangStore } from "@/shared/stores/langStore";
+import { useUserStore } from "@/shared/stores/user-store";
 import { tx } from "@/shared/config/translations/adminDashboard";
 import { primary, danger } from "@/shared/styles/colors";
 import type { Lang } from "@/shared/stores/types";
@@ -21,6 +22,19 @@ export function TopBar({
 
   const navigate = useNavigate();
   const { setLang } = useLangStore();
+  const currentUser = useUserStore((state) => state.currentUser);
+  const logout = useUserStore((state) => state.logout);
+  const initials = (currentUser?.name ?? "Admin")
+    .split(/\s+/)
+    .map((part) => part[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
+
+  const handleSignOut = () => {
+    logout();
+    navigate("/login", { replace: true });
+  };
   const [profileOpen, setProfileOpen] = useState(false);
   const langLabels: Record<Lang, string> = { en: "EN", tr: "TR", de: "DE" };
 
@@ -108,11 +122,11 @@ export function TopBar({
               className="w-7 h-7 rounded-lg flex items-center justify-center text-white text-xs"
               style={{ backgroundColor: primary, fontFamily: "Inter, sans-serif" }}
             >
-              AD
+              {initials}
             </div>
             <div className="hidden md:block text-left">
-              <p className="text-xs text-gray-900 leading-tight" style={{ fontFamily: "Inter, sans-serif" }}>Admin</p>
-              <p className="text-xs leading-tight" style={{ color: "#9CA3AF", fontFamily: "Inter, sans-serif" }}>System Admin</p>
+              <p className="text-xs text-gray-900 leading-tight" style={{ fontFamily: "Inter, sans-serif" }}>{currentUser?.name ?? "Admin"}</p>
+              <p className="text-xs leading-tight" style={{ color: "#9CA3AF", fontFamily: "Inter, sans-serif" }}>{currentUser?.tenant?.name ?? "System Admin"}</p>
             </div>
             <ChevronDown style={{ width: "14px", height: "14px", color: "#9CA3AF" }} />
           </button>
@@ -120,7 +134,7 @@ export function TopBar({
             <div className="absolute right-0 mt-1 w-48 bg-white border border-gray-200 rounded-xl shadow-lg z-50 overflow-hidden py-1">
               {[
                 { label: lang === "tr" ? "Profil" : lang === "de" ? "Profil" : "Profile", action: () => navigate("/profile") },
-                { label: lang === "tr" ? "Çıkış Yap" : lang === "de" ? "Abmelden" : "Sign Out", action: () => navigate("/login") },
+                { label: lang === "tr" ? "Çıkış Yap" : lang === "de" ? "Abmelden" : "Sign Out", action: handleSignOut },
               ].map((item, i) => (
                 <button
                   key={i}

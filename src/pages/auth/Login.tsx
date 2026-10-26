@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   Eye,
   EyeOff,
@@ -7,6 +7,7 @@ import {
   Lock,
   ArrowRight,
   CheckCircle2,
+  AlertCircle,
 } from "lucide-react";
 
 import { useLangStore } from "@/shared/stores/langStore";
@@ -14,11 +15,17 @@ import { loginTranslations } from "@/shared/config/translations/login";
 import { AuthLayout } from "@/pages/auth/components/AuthLayout";
 import { InputField } from "@/pages/auth/components/InputField";
 import { SocialButton } from "@/pages/auth/components/SocialButton";
+import { signIn } from "@/features/auth/api";
+import { useUserStore } from "@/shared/stores/user-store";
+import { getApiErrorStatus } from "@/shared/lib/apiError";
 
 export function LoginPage() {
   const { lang } = useLangStore();
   const navigate = useNavigate();
+  const location = useLocation();
+  const login = useUserStore((state) => state.login);
   const tx = loginTranslations[lang];
+  const redirectTo = (location.state as { from?: string } | null)?.from ?? "/admin";
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -27,6 +34,7 @@ export function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [successMsg, setSuccessMsg] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
 
   const [touched, setTouched] = useState({ email: false, password: false });
 
@@ -51,10 +59,17 @@ export function LoginPage() {
     setTouched({ email: true, password: true });
     if (!isValid) return;
     setLoading(true);
-    await new Promise((r) => setTimeout(r, 1500));
-    setLoading(false);
-    setSuccessMsg(tx.success);
-    setTimeout(() => navigate("/admin"), 800);
+    setErrorMsg("");
+    try {
+      const { user, token } = await signIn(email, password);
+      login(user, token);
+      setSuccessMsg(tx.success);
+      navigate(redirectTo, { replace: true });
+    } catch (error) {
+      setErrorMsg(getApiErrorStatus(error) === 401 ? tx.errors.invalidCredentials : tx.errors.requestFailed);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -85,6 +100,14 @@ export function LoginPage() {
             <div className="mb-5 flex items-center gap-2.5 p-3.5 rounded-xl text-sm bg-green-50 text-green-700">
               <CheckCircle2 className="w-4.5 h-4.5 shrink-0" />
               <span>{successMsg}</span>
+            </div>
+          )}
+
+          {/* Error message */}
+          {errorMsg && (
+            <div role="alert" className="mb-5 flex items-center gap-2.5 p-3.5 rounded-xl text-sm bg-red-50 text-red-700">
+              <AlertCircle className="w-4.5 h-4.5 shrink-0" />
+              <span>{errorMsg}</span>
             </div>
           )}
 

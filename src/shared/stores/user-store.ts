@@ -6,7 +6,7 @@ import type { User, UserState } from './types'
 interface UserStore extends UserState {
   // Actions
   setUser: (user: User | null) => void
-  login: (user: User) => void
+  login: (user: User, token: string) => void
   logout: () => void
   updateUser: (updates: Partial<User>) => void
   setRole: (role: User['role']) => void
@@ -14,6 +14,7 @@ interface UserStore extends UserState {
 
 const initialState: UserState = {
   currentUser: null,
+  token: null,
   isAuthenticated: false,
 }
 export const useUserStore = create<UserStore>()(
@@ -27,15 +28,13 @@ export const useUserStore = create<UserStore>()(
           isAuthenticated: !!user
         }),
 
-        login: (user) => set({
+        login: (user, token) => set({
           currentUser: user,
+          token,
           isAuthenticated: true
         }),
 
-        logout: () => set({
-          currentUser: null,
-          isAuthenticated: false
-        }),
+        logout: () => set(initialState),
 
         updateUser: (updates) => {
           const currentUser = get().currentUser
@@ -62,6 +61,7 @@ export const useUserStore = create<UserStore>()(
         name: 'user-store',
         partialize: (state) => ({
           currentUser: state.currentUser,
+          token: state.token,
           isAuthenticated: state.isAuthenticated
         })
       }

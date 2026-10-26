@@ -34,6 +34,11 @@ export default defineConfig(({ mode }) => {
           changeOrigin: true,
           rewrite: (requestPath) => requestPath.replace(/^\/dashboard-api/, ''),
         },
+        '/auth-api': {
+          target: env.VITE_AUTH_SERVICE_URL || 'http://localhost:4005',
+          changeOrigin: true,
+          rewrite: (requestPath) => requestPath.replace(/^\/auth-api/, ''),
+        },
       },
     },
   }

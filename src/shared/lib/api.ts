@@ -20,3 +20,7 @@ export const runServiceApi = axios.create({
 export const dashboardServiceApi = axios.create({
   baseURL: import.meta.env.VITE_DASHBOARD_SERVICE_URL || "/dashboard-api",
 });
+
+export const authServiceApi = axios.create({
+  baseURL: import.meta.env.VITE_AUTH_SERVICE_URL || "/auth-api",
+});

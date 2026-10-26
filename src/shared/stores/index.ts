@@ -5,9 +5,10 @@ import { useUserStore } from './user-store'
 // Re-export all stores for easy importing
 export { useAppStore } from './app-store'
 export { useUserStore } from './user-store'
+export { useOwnerStore } from './owner-store'
 
 // Re-export types
-export type { User, AppState, UserState, UserRole } from './types'
+export type { User, UserTenant, PlatformOwner, AppState, UserState, UserRole } from './types'
 
 // Combined store hooks for convenience
 export const useStores = () => ({

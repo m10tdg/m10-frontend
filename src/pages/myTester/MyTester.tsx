@@ -23,9 +23,8 @@ import {
   runServiceApi,
 } from "@/shared/lib/api";
 import { bg, danger, primary, success, warning } from "@/shared/styles/colors";
-
-const DEFAULT_TENANT_ID = "11111111-1111-1111-1111-111111111111";
-const TENANT_ID = import.meta.env.VITE_TENANT_ID || DEFAULT_TENANT_ID;
+import { getApiErrorMessage } from "@/shared/lib/apiError";
+import { useTenantId } from "@/features/auth/useTenantId";
 
 type Project = {
   id: string;
@@ -54,20 +53,6 @@ type TestRun = {
   report?: RunReport | null;
 };
 
-function errorMessage(error: unknown): string {
-  if (typeof error === "object" && error !== null && "response" in error) {
-    const response = error.response;
-    if (typeof response === "object" && response !== null && "data" in response) {
-      const data = response.data;
-      if (typeof data === "object" && data !== null && "error" in data && typeof data.error === "string") {
-        return data.error;
-      }
-    }
-  }
-  if (error instanceof Error) return error.message;
-  return "The request failed. Please try again.";
-}
-
 function StatusPill({ status }: { status: string }) {
   const normalized = status.toLowerCase();
   const isComplete = ["completed", "complete", "passed", "success"].includes(normalized);
@@ -88,6 +73,7 @@ function StatusPill({ status }: { status: string }) {
 
 export function MyTester() {
   const { lang } = useLangStore();
+  const tenantId = useTenantId();
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [projects, setProjects] = useState<Project[]>([]);
   const [selectedProjectId, setSelectedProjectId] = useState("");
@@ -112,7 +98,7 @@ export function MyTester() {
 
   const loadProjects = useCallback(async () => {
     const response = await projectServiceApi.get<Project[]>("/projects", {
-      params: { tenantId: TENANT_ID },
+      params: { tenantId },
     });
     setProjects(response.data);
     setSelectedProjectId((current) =>
@@ -120,16 +106,16 @@ export function MyTester() {
         ? current
         : response.data[0]?.id ?? "",
     );
-  }, []);
+  }, [tenantId]);
 
   const loadRuns = useCallback(async (projectId: string) => {
     if (!projectId) return [];
     const response = await dashboardServiceApi.get<{ items: TestRun[] }>(
       `/projects/${projectId}/runs`,
-      { params: { tenantId: TENANT_ID } },
+      { params: { tenantId } },
     );
     return response.data.items;
-  }, []);
+  }, [tenantId]);
 
   useEffect(() => {
     let cancelled = false;
@@ -137,7 +123,7 @@ export function MyTester() {
       try {
         await loadProjects();
       } catch (requestError) {
-        if (!cancelled) setError(errorMessage(requestError));
+        if (!cancelled) setError(getApiErrorMessage(requestError));
       }
     };
     initialize();
@@ -154,7 +140,7 @@ export function MyTester() {
         const projectRuns = await loadRuns(selectedProjectId);
         if (!cancelled) setRuns(projectRuns);
       } catch (requestError) {
-        if (!cancelled) setError(errorMessage(requestError));
+        if (!cancelled) setError(getApiErrorMessage(requestError));
       }
     };
     refreshRuns();
@@ -168,7 +154,7 @@ export function MyTester() {
     const timer = window.setInterval(() => {
       loadRuns(selectedProjectId)
         .then(setRuns)
-        .catch((requestError: unknown) => setError(errorMessage(requestError)));
+        .catch((requestError: unknown) => setError(getApiErrorMessage(requestError)));
     }, 10000);
     return () => window.clearInterval(timer);
   }, [runs, loadRuns, selectedProjectId]);
@@ -180,7 +166,7 @@ export function MyTester() {
     try {
       await request();
     } catch (requestError) {
-      setError(errorMessage(requestError));
+      setError(getApiErrorMessage(requestError));
     } finally {
       setBusy(null);
     }
@@ -189,7 +175,7 @@ export function MyTester() {
   const createProject = () =>
     withRequest("project", async () => {
       const response = await projectServiceApi.post<{ projectId: string }>("/projects", {
-        tenantId: TENANT_ID,
+        tenantId,
         name: projectName.trim(),
         slug: projectSlug.trim(),
       });
@@ -204,7 +190,7 @@ export function MyTester() {
     if (!selectedProjectId || !documentFile) return;
     withRequest("document", async () => {
       const form = new FormData();
-      form.append("tenantId", TENANT_ID);
+      form.append("tenantId", tenantId);
       form.append("projectId", selectedProjectId);
       form.append("docType", docType);
       form.append("file", documentFile);
@@ -218,7 +204,7 @@ export function MyTester() {
     if (!selectedProjectId) return;
     withRequest("run", async () => {
       const form = new FormData();
-      form.append("tenantId", TENANT_ID);
+      form.append("tenantId", tenantId);
       form.append("projectId", selectedProjectId);
       form.append("url", testUrl.trim());
       form.append("prompt", prompt.trim());

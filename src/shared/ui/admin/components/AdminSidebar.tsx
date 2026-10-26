@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 
 import { useLangStore } from "@/shared/stores/langStore";
+import { useUserStore } from "@/shared/stores/user-store";
 import { navTranslations } from "@/shared/config/translations/adminDashboard";
 import { navItems } from "@/shared/ui/admin/config";
 import {primary} from '@/shared/styles/colors'
@@ -23,6 +24,13 @@ export function AdminSidebar({ collapsed, setCollapsed }: AdminSidebarProps) {
   const navigate = useNavigate();
   const location = useLocation();
   const tx = navTranslations[lang];
+  const currentUser = useUserStore((state) => state.currentUser);
+  const logout = useUserStore((state) => state.logout);
+
+  const handleSignOut = () => {
+    logout();
+    navigate("/login", { replace: true });
+  };
 
   return (
     <aside
@@ -123,10 +131,10 @@ export function AdminSidebar({ collapsed, setCollapsed }: AdminSidebarProps) {
             <BadgeAlert className="w-4 h-4 shrink-0" style={{ color: "#FAB005" }} />
             <div className="min-w-0">
               <p className="text-xs text-white truncate" style={{ fontFamily: "Inter, sans-serif" }}>
-                Admin
+                {currentUser?.tenant?.name ?? "Admin"}
               </p>
               <p className="text-xs truncate" style={{ color: "#6B7280", fontFamily: "Inter, sans-serif" }}>
-                super@m10.dev
+                {currentUser?.email}
               </p>
             </div>
           </div>
@@ -136,7 +144,7 @@ export function AdminSidebar({ collapsed, setCollapsed }: AdminSidebarProps) {
       {/* Logout */}
       <div className="px-2 pb-3 border-t" style={{ borderColor: "#1F2937", paddingTop: "12px" }}>
         <button
-          onClick={() => navigate("/login")}
+          onClick={handleSignOut}
           title={collapsed ? tx.logout : undefined}
           className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors text-left"
           style={{ color: "#6B7280", fontFamily: "Inter, sans-serif" }}
