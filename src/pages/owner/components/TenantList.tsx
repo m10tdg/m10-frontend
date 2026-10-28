@@ -24,7 +24,7 @@ export function TenantList({ tenants, tx }: TenantListProps) {
         <thead>
           <tr className="text-left text-xs uppercase tracking-wide text-gray-400 border-b border-gray-100">
             <th className="px-5 py-3 font-medium">{tx.tenant}</th>
-            <th className="px-5 py-3 font-medium">{tx.admin}</th>
+            <th className="px-5 py-3 font-medium">{tx.admins}</th>
             <th className="px-5 py-3 font-medium text-right">{tx.users}</th>
             <th className="px-5 py-3 font-medium text-right">{tx.created}</th>
           </tr>
@@ -32,15 +32,26 @@ export function TenantList({ tenants, tx }: TenantListProps) {
         <tbody>
           {tenants.map((tenant) => (
             <tr key={tenant.id} className="border-b border-gray-50 last:border-0">
-              <td className="px-5 py-3.5">
+              <td className="px-5 py-3.5 align-top">
                 <p className="text-gray-900">{tenant.name}</p>
                 <p className="text-xs text-gray-400">{tenant.slug}</p>
               </td>
-              <td className="px-5 py-3.5 text-gray-600">
-                {tenant.admin_email ?? <span className="text-gray-400">{tx.noAdmin}</span>}
+              <td className="px-5 py-3.5">
+                {tenant.admins.length === 0 ? (
+                  <span className="text-gray-400">{tx.noAdmin}</span>
+                ) : (
+                  <ul className="space-y-1">
+                    {tenant.admins.map((admin) => (
+                      <li key={admin.id}>
+                        <p className="text-gray-700">{admin.name}</p>
+                        <p className="text-xs text-gray-400">{admin.email}</p>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </td>
-              <td className="px-5 py-3.5 text-right text-gray-600">{tenant.user_count}</td>
-              <td className="px-5 py-3.5 text-right text-gray-500 whitespace-nowrap">
+              <td className="px-5 py-3.5 align-top text-right text-gray-600">{tenant.user_count}</td>
+              <td className="px-5 py-3.5 align-top text-right text-gray-500 whitespace-nowrap">
                 {new Date(tenant.created_at).toLocaleDateString()}
               </td>
             </tr>

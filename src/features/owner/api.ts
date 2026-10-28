@@ -3,9 +3,11 @@ import { authServiceApi } from "@/shared/lib/api";
 import { getApiErrorStatus } from "@/shared/lib/apiError";
 import { useOwnerStore } from "@/shared/stores/owner-store";
 import type {
+  CreateOwnerPayload,
   CreateTenantPayload,
   CreateTenantResponse,
   OwnerLoginResponse,
+  OwnerSummary,
   TenantSummary,
 } from "@/entities/auth";
 
@@ -47,5 +49,23 @@ export function createTenant(payload: CreateTenantPayload): Promise<CreateTenant
       headers: ownerHeaders(),
     });
     return response.data;
+  });
+}
+
+export function listOwners(): Promise<OwnerSummary[]> {
+  return withOwnerSession(async () => {
+    const response = await authServiceApi.get<{ items: OwnerSummary[] }>("/owner/owners", {
+      headers: ownerHeaders(),
+    });
+    return response.data.items;
+  });
+}
+
+export function createOwner(payload: CreateOwnerPayload): Promise<OwnerSummary> {
+  return withOwnerSession(async () => {
+    const response = await authServiceApi.post<{ owner: OwnerSummary }>("/owner/owners", payload, {
+      headers: ownerHeaders(),
+    });
+    return response.data.owner;
   });
 }

@@ -1,0 +1,107 @@
+import type { Lang } from '@/shared/stores/types';
+
+const en = {
+  title: "Set your password",
+  greeting: "Welcome, {name}. Choose a password for {email}.",
+  password: "New password",
+  passwordPlaceholder: "At least 8 characters",
+  confirm: "Confirm password",
+  confirmPlaceholder: "Repeat your password",
+  submit: "Set password",
+  submitting: "Saving…",
+  checking: "Checking your link…",
+  successTitle: "Password set",
+  successText: "Your account is ready. You can now sign in with {email}.",
+  goToLogin: "Go to sign in",
+  invalidTitle: "Link not valid",
+  invalidText: "This link is invalid, has expired, or has already been used. Ask for a new invitation.",
+  passwordStrength: {
+    label: "Password strength",
+    weak: "Weak",
+    fair: "Fair",
+    strong: "Strong",
+    hints: {
+      length: "8+ characters",
+      uppercase: "Uppercase letter",
+      number: "Number",
+      special: "Special character",
+    },
+  },
+  errors: {
+    passwordMin: "Password must be at least 8 characters.",
+    mismatch: "Passwords do not match.",
+    requestFailed: "Something went wrong. Please try again.",
+  },
+};
+
+export type SetPasswordTranslations = typeof en;
+
+export const setPasswordTranslations: Record<Lang, SetPasswordTranslations> = {
+  en,
+  tr: {
+    title: "Şifrenizi belirleyin",
+    greeting: "Hoş geldiniz, {name}. {email} için bir şifre seçin.",
+    password: "Yeni şifre",
+    passwordPlaceholder: "En az 8 karakter",
+    confirm: "Şifreyi onaylayın",
+    confirmPlaceholder: "Şifrenizi tekrar girin",
+    submit: "Şifreyi belirle",
+    submitting: "Kaydediliyor…",
+    checking: "Bağlantınız kontrol ediliyor…",
+    successTitle: "Şifre belirlendi",
+    successText: "Hesabınız hazır. Artık {email} ile giriş yapabilirsiniz.",
+    goToLogin: "Girişe git",
+    invalidTitle: "Bağlantı geçersiz",
+    invalidText: "Bu bağlantı geçersiz, süresi dolmuş veya zaten kullanılmış. Yeni bir davet isteyin.",
+    passwordStrength: {
+      label: "Şifre gücü",
+      weak: "Zayıf",
+      fair: "Orta",
+      strong: "Güçlü",
+      hints: {
+        length: "8+ karakter",
+        uppercase: "Büyük harf",
+        number: "Rakam",
+        special: "Özel karakter",
+      },
+    },
+    errors: {
+      passwordMin: "Şifre en az 8 karakter olmalıdır.",
+      mismatch: "Şifreler eşleşmiyor.",
+      requestFailed: "Bir şeyler ters gitti. Lütfen tekrar deneyin.",
+    },
+  },
+  de: {
+    title: "Passwort festlegen",
+    greeting: "Willkommen, {name}. Wählen Sie ein Passwort für {email}.",
+    password: "Neues Passwort",
+    passwordPlaceholder: "Mindestens 8 Zeichen",
+    confirm: "Passwort bestätigen",
+    confirmPlaceholder: "Passwort wiederholen",
+    submit: "Passwort festlegen",
+    submitting: "Wird gespeichert…",
+    checking: "Link wird geprüft…",
+    successTitle: "Passwort festgelegt",
+    successText: "Ihr Konto ist bereit. Sie können sich jetzt mit {email} anmelden.",
+    goToLogin: "Zur Anmeldung",
+    invalidTitle: "Link ungültig",
+    invalidText: "Dieser Link ist ungültig, abgelaufen oder wurde bereits verwendet. Fordern Sie eine neue Einladung an.",
+    passwordStrength: {
+      label: "Passwortstärke",
+      weak: "Schwach",
+      fair: "Mittel",
+      strong: "Stark",
+      hints: {
+        length: "8+ Zeichen",
+        uppercase: "Großbuchstabe",
+        number: "Zahl",
+        special: "Sonderzeichen",
+      },
+    },
+    errors: {
+      passwordMin: "Das Passwort muss mindestens 8 Zeichen lang sein.",
+      mismatch: "Die Passwörter stimmen nicht überein.",
+      requestFailed: "Etwas ist schiefgelaufen. Bitte erneut versuchen.",
+    },
+  },
+};

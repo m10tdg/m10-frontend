@@ -1,23 +1,20 @@
 import { useState } from "react";
-import { AlertCircle, Building2, Eye, EyeOff, Hash, Lock, Mail, Plus, User } from "lucide-react";
+import { AlertCircle, Building2, Hash, Info, Mail, Plus, User } from "lucide-react";
 
 import { createTenant } from "@/features/owner/api";
 import { getApiErrorMessage, getApiErrorStatus } from "@/shared/lib/apiError";
 import { InputField } from "@/pages/auth/components/InputField";
-import { PasswordStrengthIndicator } from "@/pages/auth/components/PasswordStrengthIndicator";
 import type { CreateTenantResponse } from "@/entities/auth";
 import type { OwnerTranslations } from "@/shared/config/translations/owner";
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
-const MIN_PASSWORD_LENGTH = 8;
 
 const emptyForm = {
   tenantName: "",
   slug: "",
   adminName: "",
   adminEmail: "",
-  adminPassword: "",
 };
 
 type FormValues = typeof emptyForm;
@@ -41,7 +38,6 @@ function validate(values: FormValues, errors: OwnerTranslations["errors"]) {
     adminEmail: !values.adminEmail
       ? errors.required
       : EMAIL_PATTERN.test(values.adminEmail) ? "" : errors.emailInvalid,
-    adminPassword: values.adminPassword.length >= MIN_PASSWORD_LENGTH ? "" : errors.passwordMin,
   };
 }
 
@@ -53,7 +49,6 @@ interface CreateTenantFormProps {
 export function CreateTenantForm({ tx, onCreated }: CreateTenantFormProps) {
   const [values, setValues] = useState(emptyForm);
   const [slugEdited, setSlugEdited] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
@@ -91,7 +86,6 @@ export function CreateTenantForm({ tx, onCreated }: CreateTenantFormProps) {
         admin: {
           name: values.adminName.trim(),
           email: values.adminEmail.trim(),
-          password: values.adminPassword,
         },
       });
       setValues(emptyForm);
@@ -99,9 +93,9 @@ export function CreateTenantForm({ tx, onCreated }: CreateTenantFormProps) {
       setSubmitted(false);
       onCreated(result);
     } catch (error) {
-      // 400/409 carry a specific reason (e.g. duplicate slug or email).
+      // 400/409/502 carry a specific reason (duplicate slug or email, email not sent).
       const status = getApiErrorStatus(error);
-      setErrorMsg(status === 400 || status === 409
+      setErrorMsg(status === 400 || status === 409 || status === 502
         ? getApiErrorMessage(error)
         : tx.errors.requestFailed);
     } finally {
@@ -168,31 +162,10 @@ export function CreateTenantForm({ tx, onCreated }: CreateTenantFormProps) {
         icon={Mail}
         autoComplete="off"
       />
-      <div>
-        <InputField
-          id="admin-password"
-          label={tx.form.adminPassword}
-          type={showPassword ? "text" : "password"}
-          placeholder={tx.form.adminPasswordPlaceholder}
-          value={values.adminPassword}
-          onChange={setField("adminPassword")}
-          error={fieldError("adminPassword")}
-          icon={Lock}
-          autoComplete="new-password"
-          rightElement={
-            <button
-              type="button"
-              onClick={() => setShowPassword(!showPassword)}
-              className="text-gray-400 hover:text-gray-600 transition-colors"
-              tabIndex={-1}
-              aria-label={showPassword ? "Hide password" : "Show password"}
-            >
-              {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-            </button>
-          }
-        />
-        <PasswordStrengthIndicator password={values.adminPassword} translations={tx} />
-      </div>
+      <p className="flex gap-2 p-3 rounded-xl text-xs bg-blue-50 text-blue-700">
+        <Info className="w-4 h-4 shrink-0" />
+        <span>{tx.form.inviteHint}</span>
+      </p>
 
       <button
         type="submit"

@@ -25,6 +25,7 @@ import {
 import { bg, danger, primary, success, warning } from "@/shared/styles/colors";
 import { getApiErrorMessage } from "@/shared/lib/apiError";
 import { useTenantId } from "@/features/auth/useTenantId";
+import { myTesterTranslations } from "@/shared/config/translations/myTester";
 
 type Project = {
   id: string;
@@ -53,7 +54,7 @@ type TestRun = {
   report?: RunReport | null;
 };
 
-function StatusPill({ status }: { status: string }) {
+function StatusPill({ status, label }: { status: string; label?: string }) {
   const normalized = status.toLowerCase();
   const isComplete = ["completed", "complete", "passed", "success"].includes(normalized);
   const isFailed = ["failed", "error"].includes(normalized);
@@ -66,13 +67,14 @@ function StatusPill({ status }: { status: string }) {
       style={{ color, backgroundColor: `${color}18` }}
     >
       <Icon size={13} />
-      {status}
+      {label ?? status}
     </span>
   );
 }
 
 export function MyTester() {
   const { lang } = useLangStore();
+  const tx = myTesterTranslations[lang];
   const tenantId = useTenantId();
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [projects, setProjects] = useState<Project[]>([]);
@@ -183,7 +185,7 @@ export function MyTester() {
       setSelectedProjectId(response.data.projectId);
       setProjectName("");
       setProjectSlug("");
-      setNotice("Project created successfully.");
+      setNotice(tx.notices.projectCreated);
     });
 
   const uploadDocument = () => {
@@ -196,7 +198,7 @@ export function MyTester() {
       form.append("file", documentFile);
       await documentServiceApi.post("/documents/upload", form);
       setDocumentFile(null);
-      setNotice("Document uploaded successfully.");
+      setNotice(tx.notices.documentUploaded);
     });
   };
 
@@ -216,7 +218,7 @@ export function MyTester() {
       setPrompt("");
       setBaselineFile(null);
       setRuns(await loadRuns(selectedProjectId));
-      setNotice("Test run queued successfully.");
+      setNotice(tx.notices.runQueued);
     });
   };
 
@@ -231,7 +233,7 @@ export function MyTester() {
     });
 
   const formatDate = (value?: string | null) =>
-    value ? new Date(value).toLocaleString() : "—";
+    value ? new Date(value).toLocaleString(lang) : "—";
 
   return (
     <div className="flex min-h-screen" style={{ backgroundColor: bg, fontFamily: "Inter, sans-serif" }}>
@@ -245,9 +247,9 @@ export function MyTester() {
         <main className="flex-1 overflow-auto p-6">
           <div className="mb-6 flex flex-wrap items-start justify-between gap-4">
             <div>
-              <h1 className="mb-0.5 text-gray-900" style={{ fontSize: "1.375rem" }}>MyTester</h1>
+              <h1 className="mb-0.5 text-gray-900" style={{ fontSize: "1.375rem" }}>{tx.title}</h1>
               <p className="text-sm text-gray-500">
-                Create projects, upload requirements, and run tests against your applications.
+                {tx.subtitle}
               </p>
             </div>
             <button
@@ -256,7 +258,7 @@ export function MyTester() {
               className="flex cursor-pointer items-center gap-2 rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm text-gray-600 disabled:opacity-60"
             >
               {busy === "refresh" ? <LoaderCircle size={15} className="animate-spin" /> : <RefreshCw size={15} />}
-              Refresh
+              {tx.refresh}
             </button>
           </div>
 
@@ -276,7 +278,7 @@ export function MyTester() {
           <section className="mb-6 rounded-2xl border border-gray-100 bg-white p-5">
             <div className="mb-4 flex items-center gap-2">
               <Plus size={17} style={{ color: primary }} />
-              <h2 className="text-sm text-gray-800">Create a project</h2>
+              <h2 className="text-sm text-gray-800">{tx.createProject.title}</h2>
             </div>
             <form
               className="grid gap-3 sm:grid-cols-[1fr_1fr_auto]"
@@ -286,21 +288,21 @@ export function MyTester() {
               }}
             >
               <input
-                aria-label="Project name"
+                aria-label={tx.createProject.name}
                 required
                 value={projectName}
                 onChange={(event) => setProjectName(event.target.value)}
-                placeholder="Project name"
+                placeholder={tx.createProject.name}
                 className="min-w-0 rounded-xl border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-indigo-400"
               />
               <input
-                aria-label="Project slug"
+                aria-label={tx.createProject.slug}
                 required
                 pattern="[a-zA-Z0-9-]+"
-                title="Use letters, numbers, and hyphens only."
+                title={tx.createProject.slugHint}
                 value={projectSlug}
                 onChange={(event) => setProjectSlug(event.target.value)}
-                placeholder="project-slug"
+                placeholder={tx.createProject.slugPlaceholder}
                 className="min-w-0 rounded-xl border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-indigo-400"
               />
               <button
@@ -310,7 +312,7 @@ export function MyTester() {
                 style={{ backgroundColor: primary }}
               >
                 {busy === "project" ? <LoaderCircle size={15} className="animate-spin" /> : <Plus size={15} />}
-                Create project
+                {tx.createProject.submit}
               </button>
             </form>
           </section>
@@ -318,12 +320,12 @@ export function MyTester() {
           <section className="mb-6 rounded-2xl border border-gray-100 bg-white p-5">
             <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
               <div>
-                <h2 className="text-sm text-gray-800">Projects</h2>
-                <p className="mt-1 text-xs text-gray-500">{projects.length} project{projects.length === 1 ? "" : "s"}</p>
+                <h2 className="text-sm text-gray-800">{tx.projects.title}</h2>
+                <p className="mt-1 text-xs text-gray-500">{(projects.length === 1 ? tx.projects.countOne : tx.projects.countOther).replace("{count}", String(projects.length))}</p>
               </div>
               {projects.length > 0 && (
                 <select
-                  aria-label="Select project"
+                  aria-label={tx.projects.select}
                   value={selectedProjectId}
                   onChange={(event) => setSelectedProjectId(event.target.value)}
                   className="max-w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm text-gray-700"
@@ -336,7 +338,7 @@ export function MyTester() {
             </div>
             {projects.length === 0 ? (
               <p className="rounded-xl bg-gray-50 px-4 py-6 text-center text-sm text-gray-500">
-                No projects found. Create one above to get started.
+                {tx.projects.empty}
               </p>
             ) : (
               <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
@@ -372,7 +374,7 @@ export function MyTester() {
                 <div className="rounded-2xl border border-gray-100 bg-white p-5">
                   <div className="mb-4 flex items-center gap-2">
                     <Upload size={17} style={{ color: primary }} />
-                    <h2 className="text-sm text-gray-800">Upload project document</h2>
+                    <h2 className="text-sm text-gray-800">{tx.upload.title}</h2>
                   </div>
                   <form
                     className="space-y-3"
@@ -385,11 +387,11 @@ export function MyTester() {
                       value={docType}
                       onChange={(event) => setDocType(event.target.value)}
                       className="w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm"
-                      aria-label="Document type"
+                      aria-label={tx.upload.docType}
                     >
-                      <option value="requirement">Requirement</option>
-                      <option value="design">Design</option>
-                      <option value="other">Other</option>
+                      <option value="requirement">{tx.upload.requirement}</option>
+                      <option value="design">{tx.upload.design}</option>
+                      <option value="other">{tx.upload.other}</option>
                     </select>
                     <input
                       required
@@ -404,7 +406,7 @@ export function MyTester() {
                       style={{ backgroundColor: primary }}
                     >
                       {busy === "document" ? <LoaderCircle size={15} className="animate-spin" /> : <FileText size={15} />}
-                      Upload document
+                      {tx.upload.submit}
                     </button>
                   </form>
                 </div>
@@ -412,7 +414,7 @@ export function MyTester() {
                 <div className="rounded-2xl border border-gray-100 bg-white p-5">
                   <div className="mb-4 flex items-center gap-2">
                     <FlaskConical size={17} style={{ color: primary }} />
-                    <h2 className="text-sm text-gray-800">Run a test</h2>
+                    <h2 className="text-sm text-gray-800">{tx.run.title}</h2>
                   </div>
                   <form
                     className="space-y-3"
@@ -427,7 +429,7 @@ export function MyTester() {
                       value={testUrl}
                       onChange={(event) => setTestUrl(event.target.value)}
                       placeholder="https://example.com"
-                      aria-label="Application URL"
+                      aria-label={tx.run.url}
                       className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-indigo-400"
                     />
                     <textarea
@@ -435,13 +437,13 @@ export function MyTester() {
                       rows={3}
                       value={prompt}
                       onChange={(event) => setPrompt(event.target.value)}
-                      placeholder="Describe what the test should check"
-                      aria-label="Test prompt"
+                      placeholder={tx.run.promptPlaceholder}
+                      aria-label={tx.run.prompt}
                       className="w-full resize-y rounded-xl border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-indigo-400"
                     />
                     <div>
                       <label htmlFor="baseline-file" className="mb-1.5 block text-xs text-gray-500">
-                        Baseline screenshot (optional, PNG or JPEG)
+                        {tx.run.baseline}
                       </label>
                       <input
                         id="baseline-file"
@@ -458,7 +460,7 @@ export function MyTester() {
                       style={{ backgroundColor: primary }}
                     >
                       {busy === "run" ? <LoaderCircle size={15} className="animate-spin" /> : <FlaskConical size={15} />}
-                      Start test
+                      {tx.run.submit}
                     </button>
                   </form>
                 </div>
@@ -467,26 +469,26 @@ export function MyTester() {
               <section className="rounded-2xl border border-gray-100 bg-white p-5">
                 <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
                   <div>
-                    <h2 className="text-sm text-gray-800">Test runs · {selectedProject.name}</h2>
-                    <p className="mt-1 text-xs text-gray-500">Project test history is loaded from the dashboard service and refreshed automatically.</p>
+                    <h2 className="text-sm text-gray-800">{tx.runs.title} · {selectedProject.name}</h2>
+                    <p className="mt-1 text-xs text-gray-500">{tx.runs.subtitle}</p>
                   </div>
                   <span className="rounded-full bg-gray-100 px-2.5 py-1 text-xs text-gray-600">
-                    {projectRuns.length} run{projectRuns.length === 1 ? "" : "s"}
+                    {(projectRuns.length === 1 ? tx.runs.countOne : tx.runs.countOther).replace("{count}", String(projectRuns.length))}
                   </span>
                 </div>
                 {projectRuns.length === 0 ? (
                   <p className="rounded-xl bg-gray-50 px-4 py-6 text-center text-sm text-gray-500">
-                    No known test runs for this project yet.
+                    {tx.runs.empty}
                   </p>
                 ) : (
                   <div className="overflow-x-auto">
                     <table className="w-full min-w-[700px] text-left text-sm">
                       <thead>
                         <tr className="border-b border-gray-100 text-xs text-gray-500">
-                          <th className="px-3 py-3 font-medium">Run / URL</th>
-                          <th className="px-3 py-3 font-medium">Status</th>
-                          <th className="px-3 py-3 font-medium">Started</th>
-                          <th className="px-3 py-3 font-medium">Report</th>
+                          <th className="px-3 py-3 font-medium">{tx.runs.colRun}</th>
+                          <th className="px-3 py-3 font-medium">{tx.runs.colStatus}</th>
+                          <th className="px-3 py-3 font-medium">{tx.runs.colStarted}</th>
+                          <th className="px-3 py-3 font-medium">{tx.runs.colReport}</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -501,7 +503,7 @@ export function MyTester() {
                               )}
                               {/*<p className="mt-1 truncate text-xs text-gray-400" title={run.id}>{run.id}</p>*/}
                             </td>
-                            <td className="px-3 py-3"><StatusPill status={run.status} /></td>
+                            <td className="px-3 py-3"><StatusPill status={run.status} label={tx.status[run.status.toLowerCase()]} /></td>
                             <td className="whitespace-nowrap px-3 py-3 text-xs text-gray-500">
                               {formatDate(run.created_at)}
                             </td>
@@ -516,7 +518,7 @@ export function MyTester() {
                                       className="inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-medium text-white hover:opacity-90"
                                       style={{ backgroundColor: primary }}
                                     >
-                                      Open {run.report.format.toLowerCase() === "html" ? "HTML " : ""}report <ExternalLink size={13} />
+                                      {run.report.format.toLowerCase() === "html" ? tx.runs.openHtmlReport : tx.runs.openReport} <ExternalLink size={13} />
                                     </a>
                                   )}
                                  {/*<span className="whitespace-nowrap text-xs text-gray-500">
@@ -526,7 +528,7 @@ export function MyTester() {
                                   </span> */}
                                 </div>
                               ) : (
-                                <span className="text-xs text-gray-400">Not available yet</span>
+                                <span className="text-xs text-gray-400">{tx.runs.notAvailable}</span>
                               )}
                             </td>
                           </tr>
@@ -536,7 +538,7 @@ export function MyTester() {
                   </div>
                 )}
                 <p className="mt-4 text-xs text-gray-400">
-                  Reports are opened using secure, time-limited download links returned by the dashboard service.
+                  {tx.runs.footer}
                 </p>
               </section>
             </>
