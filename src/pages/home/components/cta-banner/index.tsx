@@ -2,11 +2,13 @@ import { useLangStore } from '@/shared/stores/langStore'
 import { translations } from '@/shared/config/translations/home'
 import { primary,bg } from '@/shared/styles/colors'
 import { Play, ChevronRight } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 
 export function CtaBannerWidget() {
   
   const { lang } = useLangStore()
   const tx = translations[lang]
+  const navigate = useNavigate()
 
   return(
     <>
@@ -48,6 +50,7 @@ export function CtaBannerWidget() {
                   {tx.cta.cta1}
                 </button>
                 <button
+                  onClick={() => navigate("/contact")}
                   className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm border border-white/40 text-white hover:bg-white/10 transition-colors cursor-pointer"
                   style={{ fontFamily: "Inter, sans-serif" }}
                 >
@@ -62,4 +65,3 @@ export function CtaBannerWidget() {
     </>
   )
 }
-

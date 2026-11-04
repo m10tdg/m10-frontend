@@ -39,6 +39,11 @@ export default defineConfig(({ mode }) => {
           changeOrigin: true,
           rewrite: (requestPath) => requestPath.replace(/^\/auth-api/, ''),
         },
+        '/backend-api': {
+          target: env.VITE_BACKEND_SERVICE_URL || 'http://localhost:4006',
+          changeOrigin: true,
+          rewrite: (requestPath) => requestPath.replace(/^\/backend-api/, ''),
+        },
       },
     },
   }

@@ -58,6 +58,13 @@ export function NavbarWidget() {
                   {tx.nav[key]}
                 </a>
               ))}
+              <button
+                onClick={() => navigate("/contact")}
+                className="px-4 py-2 rounded-lg text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors cursor-pointer"
+                style={{ fontFamily: "Inter, sans-serif" }}
+              >
+                {lang === "tr" ? "İletişim" : lang === "de" ? "Kontakt" : "Contact"}
+              </button>
             </nav>
 
             {/* Actions */}
@@ -109,6 +116,16 @@ export function NavbarWidget() {
                 {tx.nav[key]}
               </a>
             ))}
+            <button
+              onClick={() => {
+                setMobileOpen(false)
+                navigate("/contact")
+              }}
+              className="block w-full text-left px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-50"
+              style={{ fontFamily: "Inter, sans-serif" }}
+            >
+              {lang === "tr" ? "İletişim" : lang === "de" ? "Kontakt" : "Contact"}
+            </button>
             <a
               href="#cta"
               onClick={() => setMobileOpen(false)}

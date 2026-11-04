@@ -1,7 +1,8 @@
 // src/features/owner/api.ts
-import { authServiceApi } from "@/shared/lib/api";
+import { authServiceApi, backendServiceApi } from "@/shared/lib/api";
 import { getApiErrorStatus } from "@/shared/lib/apiError";
 import { useOwnerStore } from "@/shared/stores/owner-store";
+import type { ContactMessage } from "@/entities/contact";
 import type {
   CreateOwnerPayload,
   CreateTenantPayload,
@@ -67,5 +68,30 @@ export function createOwner(payload: CreateOwnerPayload): Promise<OwnerSummary> 
       headers: ownerHeaders(),
     });
     return response.data.owner;
+  });
+}
+
+export function listMessages(): Promise<ContactMessage[]> {
+  return withOwnerSession(async () => {
+    const response = await backendServiceApi.get<{ items: ContactMessage[] }>("/owner/messages", {
+      headers: ownerHeaders(),
+    });
+    return response.data.items;
+  });
+}
+
+export function updateMessageReadStatus(id: string, isRead: boolean): Promise<void> {
+  return withOwnerSession(async () => {
+    await backendServiceApi.patch(`/owner/messages/${id}/read`, { isRead }, {
+      headers: ownerHeaders(),
+    });
+  });
+}
+
+export function replyToMessage(id: string, message: string): Promise<void> {
+  return withOwnerSession(async () => {
+    await backendServiceApi.post(`/owner/messages/${id}/reply`, { message }, {
+      headers: ownerHeaders(),
+    });
   });
 }

@@ -17,11 +17,14 @@ import { OwnerLayout } from "@/pages/owner/OwnerLayout";
 import { OwnerOverviewPage } from "@/pages/owner/OwnerOverview";
 import { OwnerOwnersPage } from "@/pages/owner/OwnerOwners";
 import { OwnerTenantsPage } from "@/pages/owner/OwnerTenants";
+import { OwnerMessagesPage } from "@/pages/owner/OwnerMessages";
+import { ContactPage } from "@/pages/contact/ContactPage";
 import { RequireAuth } from "@/features/auth/RequireAuth";
 import { RequireOwner } from "@/features/owner/RequireOwner";
 
 export const router = createBrowserRouter([
   { path: "/", element: <Home /> },
+  { path: "/contact", element: <ContactPage /> },
   { path: "/login", element: <LoginPage /> },
   { path: "/register", element: <RegisterPage /> },
   // Reached from invitation emails (tenant admins and platform owners)
@@ -53,6 +56,7 @@ export const router = createBrowserRouter([
           { path: "/owner", element: <OwnerOverviewPage /> },
           { path: "/owner/tenants", element: <OwnerTenantsPage /> },
           { path: "/owner/owners", element: <OwnerOwnersPage /> },
+          { path: "/owner/messages", element: <OwnerMessagesPage /> },
         ],
       },
     ],

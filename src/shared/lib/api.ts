@@ -24,3 +24,7 @@ export const dashboardServiceApi = axios.create({
 export const authServiceApi = axios.create({
   baseURL: import.meta.env.VITE_AUTH_SERVICE_URL || "/auth-api",
 });
+
+export const backendServiceApi = axios.create({
+  baseURL: import.meta.env.VITE_BACKEND_SERVICE_URL || "/backend-api",
+});

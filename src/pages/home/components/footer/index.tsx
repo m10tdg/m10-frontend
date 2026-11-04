@@ -3,6 +3,7 @@ import { translations } from '@/shared/config/translations/home'
 import { primary, success } from '@/shared/styles/colors'
 import { langLabels } from '@/shared/config/i18n'
 import type { Lang } from '@/shared/stores/types'
+import { Link } from 'react-router-dom'
 
 
 export function FooterWidget() {
@@ -74,13 +75,23 @@ export function FooterWidget() {
                 <ul className="space-y-2.5">
                   {tx.footer.links[section].map((link: string, i: number) => (
                     <li key={i}>
-                      <a
-                        href="#"
-                        className="text-sm text-gray-400 hover:text-white transition-colors"
-                        style={{ fontFamily: "Inter, sans-serif" }}
-                      >
-                        {link}
-                      </a>
+                      {section === "company" && i === 3 ? (
+                        <Link
+                          to="/contact"
+                          className="text-sm text-gray-400 hover:text-white transition-colors"
+                          style={{ fontFamily: "Inter, sans-serif" }}
+                        >
+                          {link}
+                        </Link>
+                      ) : (
+                        <a
+                          href="#"
+                          className="text-sm text-gray-400 hover:text-white transition-colors"
+                          style={{ fontFamily: "Inter, sans-serif" }}
+                        >
+                          {link}
+                        </a>
+                      )}
                     </li>
                   ))}
                 </ul>

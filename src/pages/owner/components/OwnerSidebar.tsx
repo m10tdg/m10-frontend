@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { Building2, LayoutDashboard, Users } from "lucide-react";
+import { Building2, LayoutDashboard, Mail, Users } from "lucide-react";
 
 import type { OwnerTranslations } from "@/shared/config/translations/owner";
 
@@ -12,6 +12,7 @@ export function OwnerSidebar({ tx }: OwnerSidebarProps) {
     { to: "/owner", label: tx.overview, icon: LayoutDashboard, end: true },
     { to: "/owner/tenants", label: tx.tenants, icon: Building2, end: false },
     { to: "/owner/owners", label: tx.owners, icon: Users, end: false },
+    { to: "/owner/messages", label: tx.messages, icon: Mail, end: false },
   ];
 
   return (
