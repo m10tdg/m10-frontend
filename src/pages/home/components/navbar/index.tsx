@@ -2,8 +2,8 @@ import { useLangStore } from '@/shared/stores/langStore'
 import { translations } from '@/shared/config/translations/home'
 import { primary } from '@/shared/styles/colors'
 import { ArrowRight,Menu, X } from 'lucide-react'
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { LanguageSwitcher } from '@/shared/ui/LanguageSwitcher'
 import { blogTranslations } from '@/shared/config/translations/blog'
 
@@ -11,9 +11,20 @@ export function NavbarWidget() {
   
   const { lang } = useLangStore()
   const navigate = useNavigate()
+  const location = useLocation()
   const tx = translations[lang]
   const blogTx = blogTranslations[lang]
   const [mobileOpen, setMobileOpen] = useState(false)
+
+  useEffect(() => {
+    if (location.pathname !== "/" || !location.hash) return
+
+    const frame = window.requestAnimationFrame(() => {
+      document.getElementById(location.hash.slice(1))?.scrollIntoView({ behavior: "smooth" })
+    })
+
+    return () => window.cancelAnimationFrame(frame)
+  }, [location.hash, location.pathname])
 
     return (
     <>
@@ -24,7 +35,11 @@ export function NavbarWidget() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
-            <div className="flex items-center gap-3">
+            <Link
+              to="/"
+              aria-label="M10 Platform home"
+              className="flex items-center gap-3 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
+            >
               <div
                 className="w-9 h-9 rounded-xl flex items-center justify-center"
                 style={{ backgroundColor: primary }}
@@ -41,24 +56,24 @@ export function NavbarWidget() {
                   Test Automation
                 </p>
               </div>
-            </div>
+            </Link>
 
             {/* Desktop Nav */}
             <nav className="hidden md:flex items-center gap-1">
               {[
-                { key: "features" as const, href: "#features" },
-                { key: "innovation" as const, href: "#innovation" },
-                { key: "tests" as const, href: "#tests" },
-                { key: "pricing" as const, href: "#pricing" },
-              ].map(({ key, href }) => (
-                <a
+                { key: "features" as const, section: "features" },
+                { key: "innovation" as const, section: "innovation" },
+                { key: "tests" as const, section: "tests" },
+                { key: "pricing" as const, section: "pricing" },
+              ].map(({ key, section }) => (
+                <Link
                   key={key}
-                  href={href}
+                  to={`/#${section}`}
                   className="px-4 py-2 rounded-lg text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors"
                   style={{ fontFamily: "Inter, sans-serif" }}
                 >
                   {tx.nav[key]}
-                </a>
+                </Link>
               ))}
               <button
                 onClick={() => navigate("/blog")}
@@ -110,20 +125,20 @@ export function NavbarWidget() {
         {mobileOpen && (
           <div className="md:hidden border-t border-gray-100 bg-white px-4 py-3 space-y-1">
             {[
-              { key: "features" as const, href: "#features" },
-              { key: "innovation" as const, href: "#innovation" },
-              { key: "tests" as const, href: "#tests" },
-              { key: "pricing" as const, href: "#pricing" },
-            ].map(({ key, href }) => (
-              <a
+              { key: "features" as const, section: "features" },
+              { key: "innovation" as const, section: "innovation" },
+              { key: "tests" as const, section: "tests" },
+              { key: "pricing" as const, section: "pricing" },
+            ].map(({ key, section }) => (
+              <Link
                 key={key}
-                href={href}
+                to={`/#${section}`}
                 onClick={() => setMobileOpen(false)}
                 className="block px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-50"
                 style={{ fontFamily: "Inter, sans-serif" }}
               >
                 {tx.nav[key]}
-              </a>
+              </Link>
             ))}
             <button
               onClick={() => {
@@ -145,14 +160,14 @@ export function NavbarWidget() {
             >
               {lang === "tr" ? "İletişim" : lang === "de" ? "Kontakt" : "Contact"}
             </button>
-            <a
-              href="#cta"
+            <Link
+              to="/#cta"
               onClick={() => setMobileOpen(false)}
               className="block mt-2 px-3 py-2 rounded-lg text-sm text-white text-center"
               style={{ backgroundColor: primary }}
             >
               {tx.nav.getStarted}
-            </a>
+            </Link>
           </div>
         )}
       </header>

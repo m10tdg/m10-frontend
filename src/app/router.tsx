@@ -20,6 +20,8 @@ import { OwnerTenantsPage } from "@/pages/owner/OwnerTenants";
 import { OwnerMessagesPage } from "@/pages/owner/OwnerMessages";
 import { ContactPage } from "@/pages/contact/ContactPage";
 import { BlogPage, BlogPostPage } from "@/pages/blog/BlogPages";
+import { AboutPage } from "@/pages/about/AboutPage";
+import { HelpCenterPage } from "@/pages/help/HelpCenterPage";
 import { OwnerBlogsPage } from "@/pages/owner/OwnerBlogs";
 import { RequireAuth } from "@/features/auth/RequireAuth";
 import { RequireOwner } from "@/features/owner/RequireOwner";
@@ -27,6 +29,8 @@ import { RequireOwner } from "@/features/owner/RequireOwner";
 export const router = createBrowserRouter([
   { path: "/", element: <Home /> },
   { path: "/contact", element: <ContactPage /> },
+  { path: "/about", element: <AboutPage /> },
+  { path: "/help", element: <HelpCenterPage /> },
   { path: "/blog", element: <BlogPage /> },
   { path: "/blog/:slug", element: <BlogPostPage /> },
   { path: "/login", element: <LoginPage /> },
