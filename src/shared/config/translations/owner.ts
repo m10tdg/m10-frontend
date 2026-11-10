@@ -19,6 +19,7 @@ const en = {
     tenants: "Tenants",
     owners: "Owners",
     messages: "Messages",
+    blogs: "Blog",
     signOut: "Sign Out",
   },
   overview: {
@@ -126,6 +127,7 @@ export const ownerTranslations: Record<Lang, OwnerTranslations> = {
       tenants: "Kiracılar",
       owners: "Sahipler",
       messages: "Mesajlar",
+      blogs: "Blog",
       signOut: "Çıkış Yap",
     },
     overview: {
@@ -228,6 +230,7 @@ export const ownerTranslations: Record<Lang, OwnerTranslations> = {
       tenants: "Mandanten",
       owners: "Owner",
       messages: "Nachrichten",
+      blogs: "Blog",
       signOut: "Abmelden",
     },
     overview: {

@@ -75,9 +75,9 @@ export function FooterWidget() {
                 <ul className="space-y-2.5">
                   {tx.footer.links[section].map((link: string, i: number) => (
                     <li key={i}>
-                      {section === "company" && i === 3 ? (
+                      {section === "company" && (i === 1 || i === 3) ? (
                         <Link
-                          to="/contact"
+                          to={i === 1 ? "/blog" : "/contact"}
                           className="text-sm text-gray-400 hover:text-white transition-colors"
                           style={{ fontFamily: "Inter, sans-serif" }}
                         >

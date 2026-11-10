@@ -5,12 +5,14 @@ import { ArrowRight,Menu, X } from 'lucide-react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { LanguageSwitcher } from '@/shared/ui/LanguageSwitcher'
+import { blogTranslations } from '@/shared/config/translations/blog'
 
 export function NavbarWidget() {
   
   const { lang } = useLangStore()
   const navigate = useNavigate()
   const tx = translations[lang]
+  const blogTx = blogTranslations[lang]
   const [mobileOpen, setMobileOpen] = useState(false)
 
     return (
@@ -58,6 +60,13 @@ export function NavbarWidget() {
                   {tx.nav[key]}
                 </a>
               ))}
+              <button
+                onClick={() => navigate("/blog")}
+                className="px-4 py-2 rounded-lg text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors cursor-pointer"
+                style={{ fontFamily: "Inter, sans-serif" }}
+              >
+                {blogTx.nav}
+              </button>
               <button
                 onClick={() => navigate("/contact")}
                 className="px-4 py-2 rounded-lg text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors cursor-pointer"
@@ -116,6 +125,16 @@ export function NavbarWidget() {
                 {tx.nav[key]}
               </a>
             ))}
+            <button
+              onClick={() => {
+                setMobileOpen(false)
+                navigate("/blog")
+              }}
+              className="block w-full text-left px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-50"
+              style={{ fontFamily: "Inter, sans-serif" }}
+            >
+              {blogTx.nav}
+            </button>
             <button
               onClick={() => {
                 setMobileOpen(false)

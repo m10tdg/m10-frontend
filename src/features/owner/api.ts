@@ -3,6 +3,7 @@ import { authServiceApi, backendServiceApi } from "@/shared/lib/api";
 import { getApiErrorStatus } from "@/shared/lib/apiError";
 import { useOwnerStore } from "@/shared/stores/owner-store";
 import type { ContactMessage } from "@/entities/contact";
+import type { BlogPost, BlogPostPayload, BlogStatus } from "@/entities/blog";
 import type {
   CreateOwnerPayload,
   CreateTenantPayload,
@@ -93,5 +94,41 @@ export function replyToMessage(id: string, message: string): Promise<void> {
     await backendServiceApi.post(`/owner/messages/${id}/reply`, { message }, {
       headers: ownerHeaders(),
     });
+  });
+}
+
+export function listOwnerBlogs(): Promise<BlogPost[]> {
+  return withOwnerSession(async () => {
+    const response = await backendServiceApi.get<{ items: BlogPost[] }>("/owner/blogs", {
+      headers: ownerHeaders(),
+    });
+    return response.data.items;
+  });
+}
+
+export function saveOwnerBlog(
+  payload: BlogPostPayload & { status: BlogStatus },
+  id?: string,
+): Promise<BlogPost> {
+  return withOwnerSession(async () => {
+    const response = id
+      ? await backendServiceApi.put<{ post: BlogPost }>(`/owner/blogs/${id}`, payload, {
+          headers: ownerHeaders(),
+        })
+      : await backendServiceApi.post<{ post: BlogPost }>("/owner/blogs", payload, {
+          headers: ownerHeaders(),
+        });
+    return response.data.post;
+  });
+}
+
+export function setBlogPublished(id: string, published: boolean): Promise<BlogPost> {
+  return withOwnerSession(async () => {
+    const response = await backendServiceApi.patch<{ post: BlogPost }>(
+      `/owner/blogs/${id}/publish`,
+      { published },
+      { headers: ownerHeaders() },
+    );
+    return response.data.post;
   });
 }
